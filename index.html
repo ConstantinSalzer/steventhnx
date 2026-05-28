@@ -1,0 +1,3940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="Images/anton.png">
+  <meta property="og:title" content="STEVETHNX — SubMax Coaching System">
+  <meta property="og:description" content="True strength is engineered. Calisthenics coaching built on science—not ego.">
+  <meta property="og:type" content="website">
+  <title>STEVETHNX — Steven's SubMax Coaching</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Rubik+Dirt&display=swap" rel="stylesheet">
+
+  <style>
+  /* ══════════════════════════════════════
+     CSS VARIABLES
+  ══════════════════════════════════════ */
+  :root {
+    --bg: #050505;
+    --surface: #0a0a0a;
+    --surface2: #0f0f0f;
+    --border: #1a1a1a;
+    --border2: #2a2a2a;
+    --text: #f0f0f0;
+    --muted: #666666;
+    --muted2: #999999;
+    --accent: #d1541a;
+    --accent-light: #ff9c19;
+    --radius: 8px;
+  }
+
+  /* ══════════════════════════════════════
+     RESET & BASE
+  ══════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  img, video, iframe, canvas { max-width: 100%; height: auto; }
+
+  ::selection { background: rgba(209,84,26,0.3); color: #fff; }
+  ::-moz-selection { background: rgba(209,84,26,0.3); color: #fff; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* ══════════════════════════════════════
+     CUSTOM CURSOR
+  ══════════════════════════════════════ */
+  #cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  #cursor.hovering { width: 40px; height: 40px; opacity: 0.5; }
+
+  @media (hover: none), (pointer: coarse) {
+    #cursor { display: none !important; }
+    body { cursor: auto; }
+    * { cursor: auto !important; }
+  }
+
+  /* ══════════════════════════════════════
+     GRAIN OVERLAY
+  ══════════════════════════════════════ */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9998; opacity: 0.4;
+  }
+
+  /* ══════════════════════════════════════
+     CANVAS LAYERS
+  ══════════════════════════════════════ */
+  #aura-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 999;
+    will-change: contents;
+  }
+
+  #fire-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; opacity: 0.9;
+    will-change: contents;
+  }
+
+  /* Ensure page sections sit above fire canvas */
+  #hero, section, .full-section, .qualifier-strip,
+  .photo-banner, .rp-strip, footer, .footer-sub, #apply {
+    position: relative; z-index: 1;
+  }
+
+  /* ══════════════════════════════════════
+     NAVIGATION
+  ══════════════════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: none;
+    border-top: none;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+
+  /* Glowing orange separator line under the nav */
+  nav::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), var(--accent), transparent);
+    box-shadow: 0 0 8px rgba(209,84,26,0.5), 0 0 20px rgba(209,84,26,0.2);
+    animation: navLineGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes navLineGlow {
+    0%, 100% { opacity: 0.7; box-shadow: 0 0 6px rgba(209,84,26,0.4), 0 0 14px rgba(209,84,26,0.15); }
+    50% { opacity: 1; box-shadow: 0 0 12px rgba(209,84,26,0.6), 0 0 28px rgba(209,84,26,0.25); }
+  }
+
+  nav.scrolled {
+    background: rgba(0,0,0,0.95);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  .nav-brand {
+    font-family: 'Rubik Dirt', sans-serif;
+    font-size: 20px; letter-spacing: 2px;
+    color: #ffffff; text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .nav-brand:hover { opacity: 0.8; }
+
+  .nav-cta {
+    background: #000;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 2.5px;
+    padding: 11px 28px;
+    border: 1px solid rgba(209,84,26,0.4);
+    border-radius: 4px;
+    cursor: none; text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    text-transform: uppercase;
+    box-shadow: 0 0 12px rgba(209,84,26,0.15);
+  }
+
+  .nav-cta:hover,
+  .nav-cta.aura-active {
+    border-color: rgba(209,84,26,0.8);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(209,84,26,0.35), 0 0 40px rgba(209,84,26,0.12);
+  }
+
+  /* ══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(232,213,176,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,213,176,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+
+  #hero {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-glow {
+    position: absolute; width: 900px; height: 900px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(209,84,26,0.06) 0%, transparent 65%);
+    top: -300px; right: -300px; pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(209,84,26,0.04) 0%, transparent 65%);
+    bottom: -200px; left: -200px; pointer-events: none;
+  }
+
+  /* Center glow behind the statement */
+  .hero-glow-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(209,84,26,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(40px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Eyebrow */
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 32px;
+    text-transform: uppercase;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  /* Main headline */
+  h1.hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 8vw, 140px);
+    line-height: 1.02;
+    color: #ffffff;
+    animation: fadeUp 0.8s 0.1s ease both;
+    letter-spacing: 0.12em;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: normal;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  h1.hero-title .gold { color: var(--accent); }
+  h1.hero-title .dim  { color: var(--border2); }
+
+  /* The secondary line — different weight for contrast */
+  .hero-title-secondary {
+    display: block;
+    color: var(--muted2);
+    font-size: 0.55em;
+    letter-spacing: 0.35em;
+    margin-top: 8px;
+    opacity: 0.6;
+  }
+
+  /* Hero "ENGINEERED" neon flicker */
+  .hero-training-wrap {
+    display: inline; white-space: nowrap;
+    animation: trainingFlicker 7.4s linear infinite;
+  }
+
+  .hero-training-letter {
+    display: inline;
+    color: #e8853a;
+    -webkit-text-fill-color: #e8853a;
+    -webkit-tap-highlight-color: transparent;
+    font-weight: 400;
+  }
+  .hero-training-letter::before { content: none; }
+
+  @keyframes trainingFlicker {
+    0%    { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    27.0% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    27.5% { opacity:0.08; text-shadow: none; }
+    28.0% { opacity:1; text-shadow: 0 0 8px #FF4500, 0 0 22px rgba(255,69,0,0.7), 0 0 50px rgba(255,69,0,0.35), 0 0 80px rgba(255,69,0,0.2); }
+    28.5% { opacity:0.08; text-shadow: none; }
+    29.5% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    62.0% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    62.5% { opacity:0.08; text-shadow: none; }
+    63.0% { opacity:1; text-shadow: 0 0 8px #FF4500, 0 0 22px rgba(255,69,0,0.7), 0 0 50px rgba(255,69,0,0.35), 0 0 80px rgba(255,69,0,0.2); }
+    63.5% { opacity:0.08; text-shadow: none; }
+    64.0% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    64.5% { opacity:0.08; text-shadow: none; }
+    65.5% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    72.3% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    72.8% { opacity:0.08; text-shadow: none; }
+    73.3% { opacity:1; text-shadow: 0 0 8px #FF4500, 0 0 22px rgba(255,69,0,0.7), 0 0 50px rgba(255,69,0,0.35), 0 0 80px rgba(255,69,0,0.2); }
+    73.8% { opacity:0.08; text-shadow: none; }
+    74.8% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    100%  { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+  }
+
+  .strength-glow {
+    color: #FF8C00;
+    animation: trainingFlicker 7.4s linear infinite;
+    animation-delay: 0.5s;
+  }
+
+  /* Accent statement line */
+  .hero-accent-line {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(12px, 1.3vw, 16px);
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 32px auto 0;
+    padding: 12px 28px;
+    border: 1px solid rgba(209,84,26,0.25);
+    border-radius: 999px;
+    background: rgba(209,84,26,0.05);
+    display: inline-block;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  /* Tagline below the headline */
+  .hero-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(13px, 1.4vw, 17px);
+    color: var(--muted2);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+    max-width: 520px;
+    margin: 36px auto 0;
+    text-align: center;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  /* Divider line */
+  .hero-divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 32px auto;
+    opacity: 0.5;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  /* Hero CTA */
+  .hero-cta-wrap {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero-pillars {
+    display: flex; align-items: center; gap: 20px;
+    margin-top: 28px; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-pillar {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(22px, 3.5vw, 56px);
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    text-shadow: 0 0 8px rgba(209,84,26,0.5), 0 0 20px rgba(209,84,26,0.25);
+    white-space: nowrap;
+  }
+
+  .hero-pillar-sep {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(10px, 1vw, 16px);
+    color: var(--border2); letter-spacing: 0; opacity: 0.6;
+  }
+
+  .hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(14px, 1.6vw, 18px);
+    color: var(--accent); max-width: 620px;
+    line-height: 1.9; margin-top: 36px;
+    letter-spacing: 0.03em;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-stats-row {
+    display: flex; gap: 48px; flex-wrap: wrap;
+    margin-top: 56px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hstat { border-left: 2px solid var(--accent); padding-left: 20px; }
+  .hstat-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--accent); line-height: 1; }
+  .hstat-label { font-size: 9px; letter-spacing: 3px; color: var(--muted); margin-top: 4px; }
+
+  .hero-cta-row {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-top: 48px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  /* ══════════════════════════════════════
+     BUTTONS
+  ══════════════════════════════════════ */
+  .btn-primary {
+    background: #000; color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 2.5px; font-weight: 500;
+    padding: 18px 44px;
+    border: 1px solid rgba(209,84,26,0.4);
+    border-radius: var(--radius); cursor: none;
+    text-decoration: none; display: inline-block;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 0 16px rgba(209,84,26,0.15), 0 0 4px rgba(209,84,26,0.1);
+  }
+  .btn-primary:hover {
+    border-color: rgba(209,84,26,0.8);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px rgba(209,84,26,0.35), 0 0 48px rgba(209,84,26,0.15), 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .btn-ghost {
+    background: transparent; color: var(--muted2);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 2.5px;
+    padding: 18px 44px;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius); cursor: none;
+    text-decoration: none; display: inline-block;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(209,84,26,0.5); color: var(--accent);
+    box-shadow: 0 0 12px rgba(209,84,26,0.1);
+  }
+
+  /* Dark variant for specific CTAs */
+  .btn-dark {
+    background: rgba(255,255,255,0.06); color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 2.5px; font-weight: 500;
+    padding: 18px 44px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius); cursor: none;
+    text-decoration: none; display: inline-block;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .btn-dark:hover {
+    background: #fff; color: #000;
+    border-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(255,255,255,0.1);
+  }
+
+  /* ══════════════════════════════════════
+     SECTION BASE
+  ══════════════════════════════════════ */
+  .section {
+    padding: 80px 60px;
+    padding-bottom: 0 !important;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 5px;
+    color: var(--accent); opacity: 0.7;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 16px;
+    text-transform: uppercase;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border2), transparent); max-width: 80px; }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1; letter-spacing: 0.02em;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  .section-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px; color: var(--muted2);
+    max-width: 560px; line-height: 1.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+  }
+
+  .full-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+  .full-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.25);
+    pointer-events: none; z-index: 0;
+  }
+  .full-section > * { position: relative; z-index: 1; }
+
+  /* ══════════════════════════════════════
+     VIDEO SECTION
+  ══════════════════════════════════════ */
+  #video-section { padding: 0; }
+
+  .video-wrap {
+    max-width: 900px; margin: 0 auto;
+    padding: 40px 60px 80px;
+  }
+
+  .video-label {
+    font-size: 10px; letter-spacing: 4px;
+    color: var(--accent); opacity: 0.7;
+    margin-bottom: 20px; text-align: center;
+  }
+
+  .video-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 5vw, 60px);
+    text-align: center; line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .video-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px; color: var(--muted2);
+    text-align: center; margin-bottom: 40px;
+    line-height: 1.85; letter-spacing: 0.03em;
+  }
+
+  .video-container {
+    position: relative; padding-bottom: 56.25%;
+    height: 0; overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--border2);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+  }
+
+  .video-container iframe {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; border: none;
+  }
+
+  .video-after-cta { margin-top: 40px; padding-bottom: 60px; text-align: center; }
+
+  .video-after-cta .btn-primary {
+    background: #000;
+    color: var(--accent);
+    border: 1px solid rgba(209,84,26,0.4);
+    padding: 20px 52px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    border-radius: var(--radius);
+    box-shadow: 0 0 20px rgba(209,84,26,0.2), 0 0 6px rgba(209,84,26,0.15);
+    transition: all 0.3s ease;
+    animation: ctaBreathe 3s ease-in-out infinite;
+  }
+
+  @keyframes ctaBreathe {
+    0%, 100% { box-shadow: 0 0 16px rgba(209,84,26,0.15), 0 0 4px rgba(209,84,26,0.1); }
+    50% { box-shadow: 0 0 24px rgba(209,84,26,0.3), 0 0 48px rgba(209,84,26,0.1); }
+  }
+
+  .video-after-cta .btn-primary:hover {
+    border-color: rgba(209,84,26,0.8);
+    color: #fff;
+    box-shadow: 0 0 28px rgba(209,84,26,0.4), 0 0 56px rgba(209,84,26,0.15);
+    transform: translateY(-2px);
+    animation: none;
+  }
+
+  /* ══════════════════════════════════════
+     COACH / ABOUT SECTION
+  ══════════════════════════════════════ */
+  #coach {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .coach-image-wrap { position: relative; }
+
+  .coach-image {
+    width: 100%; aspect-ratio: 3/4;
+    background: var(--surface2);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    position: relative; overflow: hidden;
+    background-size: cover; background-position: center top;
+    padding: 2px; background-clip: padding-box;
+    border: 2px solid transparent;
+    animation: borderGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes borderGlow {
+    0%, 100% { border-color: rgba(209,84,26,0.5); box-shadow: 0 0 8px rgba(209,84,26,0.2), 0 0 20px rgba(209,84,26,0.08); }
+    50% { border-color: rgba(255,156,25,0.6); box-shadow: 0 0 12px rgba(255,156,25,0.3), 0 0 28px rgba(255,156,25,0.12); }
+  }
+
+  .coach-badge {
+    position: absolute; bottom: 24px; left: 24px;
+    background: rgba(6,8,15,0.92);
+    border: 1px solid var(--accent);
+    padding: 12px 20px; border-radius: 4px;
+  }
+
+  .coach-badge-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); letter-spacing: 2px; }
+  .coach-badge-title { font-size: 9px; letter-spacing: 2px; color: var(--muted); margin-top: 2px; }
+
+  .coach-content .section-label { margin-bottom: 16px; }
+  .coach-info-stack { display: flex; flex-direction: column; }
+
+  .coach-stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin: 32px 0;
+  }
+
+  .coach-stat {
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .coach-stat:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+  }
+
+  .cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--accent); line-height: 1; }
+  .cs-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--muted); margin-top: 6px; text-transform: uppercase; }
+
+  .coach-bio {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; color: var(--muted2);
+    line-height: 1.85; margin-bottom: 16px;
+    letter-spacing: 0.03em;
+  }
+  .coach-bio strong { color: var(--accent); font-weight: 400; }
+
+  /* ══════════════════════════════════════
+     SUBMAX SYSTEM CARDS
+  ══════════════════════════════════════ */
+  .system-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 48px;
+  }
+
+  .system-card {
+    padding: 28px 24px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+
+  .system-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .system-card:hover { border-color: var(--border2); }
+  .system-card:hover::before { opacity: 1; }
+
+  .sc-num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--border2); line-height: 1; margin-bottom: 16px; transition: color 0.3s; }
+  .sc-title { font-size: 11px; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+  .sc-text { font-size: 12px; color: var(--muted2); line-height: 1.8; }
+
+  /* ══════════════════════════════════════
+     SUBMAX INTRO CARDS
+  ══════════════════════════════════════ */
+  .submax-intro-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 60px;
+    position: relative; z-index: 1;
+  }
+  .submax-intro-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(0,0,0,0.25);
+    pointer-events: none; z-index: 0;
+  }
+  .submax-intro-section > * { position: relative; z-index: 1; }
+  .submax-intro-wrap { max-width: 900px; margin: 0 auto; }
+
+  .submax-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .submax-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; color: var(--muted2);
+    line-height: 1.85;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .submax-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  }
+
+  .submax-card strong { color: var(--accent); font-weight: 500; }
+  .submax-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 1px;
+    text-align: center; color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .submax-card--highlight {
+    border-color: rgba(209,84,26,0.3);
+    background: rgba(209,84,26,0.03);
+  }
+
+  /* ══════════════════════════════════════
+     SKILLS STRIP
+  ══════════════════════════════════════ */
+  .skills-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 48px; }
+
+  .skill-badge {
+    padding: 10px 20px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--muted2); background: var(--surface2);
+    transition: all 0.2s;
+  }
+  .skill-badge:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ══════════════════════════════════════
+     TESTIMONIAL TEXT CARDS
+  ══════════════════════════════════════ */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+
+  .tcard {
+    padding: 28px; background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px; position: relative;
+    transition: border-color 0.3s;
+  }
+  .tcard:hover { border-color: var(--border2); }
+
+  .tcard-quote { font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 0.8; color: var(--accent); opacity: 0.15; position: absolute; top: 16px; right: 20px; }
+  .tcard-text { font-family: 'Inter', sans-serif; font-style: italic; font-size: 15px; color: var(--muted2); line-height: 1.8; margin-bottom: 24px; position: relative; z-index: 1; }
+  .tcard-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+  .tcard-author { display: flex; align-items: center; gap: 14px; }
+  .tcard-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border2); flex-shrink: 0; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); }
+  .tcard-name { font-size: 12px; color: var(--text); font-weight: 500; }
+  .tcard-meta { font-size: 10px; color: var(--muted); letter-spacing: 1px; margin-top: 2px; }
+  .tcard-skill { display: inline-block; font-size: 8px; letter-spacing: 2px; color: var(--accent); background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); padding: 2px 8px; border-radius: 2px; margin-top: 6px; }
+
+  /* ══════════════════════════════════════
+     VIDEO TESTIMONIAL CARDS
+  ══════════════════════════════════════ */
+  .tvcard { display: flex; flex-direction: column; gap: 12px; }
+
+  .tvcard-video-wrap {
+    position: relative; width: 100%;
+    aspect-ratio: 9/16;
+    background: #000;
+    border: 1px solid var(--border2);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .tvcard-video-wrap:hover {
+    border-color: rgba(209,84,26,0.4);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 16px rgba(209,84,26,0.15);
+  }
+
+  .tvcard-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block; background: #000; border: 0;
+  }
+
+  .tvcard-play-btn {
+    align-self: center;
+    border: 1px solid rgba(209,84,26,0.55);
+    background: transparent;
+    color: var(--text);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 11px; letter-spacing: 1.6px;
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    position: relative; z-index: 2;
+  }
+
+  .tvcard-play-btn.is-playing { background: rgba(209,84,26,0.2); border-color: rgba(255,156,25,0.9); color: #fff; }
+  .tvcard-play-btn:hover { background: rgba(209,84,26,0.18); border-color: rgba(209,84,26,0.85); transform: translateY(-1px); }
+  .tvcard-play-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tvcard-play-icon { font-size: 12px; line-height: 1; }
+
+  .tvcard-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px; letter-spacing: 3px;
+    color: var(--accent); text-align: center;
+    margin-top: 12px;
+  }
+
+  .tvcard-desc {
+    margin-top: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; line-height: 1.6;
+    color: var(--muted2); letter-spacing: 0.03em;
+  }
+
+  .tvcard:nth-child(1) .tvcard-video-wrap { animation-delay: 0s; }
+  .tvcard:nth-child(2) .tvcard-video-wrap { animation-delay: 0.35s; }
+  .tvcard:nth-child(3) .tvcard-video-wrap { animation-delay: 0.7s; }
+  .tvcard:nth-child(4) .tvcard-video-wrap { animation-delay: 1.05s; }
+  .tvcard:nth-child(5) .tvcard-video-wrap { animation-delay: 1.4s; }
+  .tvcard:nth-child(6) .tvcard-video-wrap { animation-delay: 1.75s; }
+  .tvcard:nth-child(7) .tvcard-video-wrap { animation-delay: 2.1s; }
+  .tvcard:nth-child(8) .tvcard-video-wrap { animation-delay: 2.45s; }
+  .tvcard:nth-child(9) .tvcard-video-wrap { animation-delay: 2.8s; }
+
+  /* ══════════════════════════════════════
+     CTA BANNER
+  ══════════════════════════════════════ */
+  .cta-banner { text-align: center; padding: 120px 60px; position: relative; overflow: hidden; }
+  .cta-banner-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(209,84,26,0.04) 0%, transparent 65%); pointer-events: none; }
+  .cta-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 8vw, 100px); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; position: relative; z-index: 1; }
+  .cta-banner-sub { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--muted2); max-width: 480px; margin: 0 auto 48px; line-height: 1.9; letter-spacing: 0.02em; position: relative; z-index: 1; }
+
+  /* ══════════════════════════════════════
+     APPLICATION FORM
+  ══════════════════════════════════════ */
+  #apply { border-top: 1px solid var(--border); position: relative; }
+  #apply::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.25); pointer-events: none; z-index: 0; }
+  #apply > * { position: relative; z-index: 1; }
+
+  .form-wrap { max-width: 720px; margin: 0 auto; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label { font-size: 9px; letter-spacing: 3px; color: var(--accent); opacity: 0.8; }
+
+  .form-input, .form-select, .form-textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border); color: var(--text);
+    font-family: 'DM Mono', monospace; font-size: 13px;
+    padding: 14px 16px; border-radius: 4px;
+    outline: none; cursor: none;
+    transition: border-color 0.2s;
+    width: 100%; appearance: none; -webkit-appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+  .form-select option { background: var(--surface2); }
+
+  .radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .radio-opt {
+    flex: 1; min-width: 100px;
+    padding: 12px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px; cursor: none;
+    font-size: 10px; letter-spacing: 1px;
+    color: var(--muted2); text-align: center;
+    transition: all 0.2s; user-select: none;
+  }
+  .radio-opt:hover { border-color: var(--border2); color: var(--text); }
+  .radio-opt.selected { border-color: var(--accent); color: var(--accent); background: rgba(232,213,176,0.06); }
+
+  /* Seriousness slider */
+  .seriousness-track { position: relative; height: 4px; background: var(--border); border-radius: 2px; margin: 16px 0 8px; }
+  .seriousness-fill { position: absolute; left: 0; top: 0; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent)); border-radius: 2px; pointer-events: none; transition: width 0.1s; }
+  input.seriousness-range { position: absolute; inset: -8px 0; width: 100%; opacity: 0; cursor: none; z-index: 2; }
+  .seriousness-thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 1px var(--accent); pointer-events: none; transition: left 0.1s; }
+  .seriousness-labels { display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 1px; color: var(--muted); margin-top: 12px; }
+  .seriousness-value { text-align: center; margin-top: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--accent); }
+
+  .typeform-note { padding: 16px 20px; background: rgba(232,213,176,0.04); border: 1px solid rgba(232,213,176,0.15); border-radius: 4px; font-size: 11px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+  .typeform-note strong { color: var(--accent); font-weight: 400; }
+
+  .form-submit-btn {
+    width: 100%; background: var(--accent); color: var(--bg);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 3px;
+    padding: 20px; border: none; border-radius: 2px; cursor: none;
+    transition: all 0.2s; position: relative; overflow: hidden;
+  }
+  .form-submit-btn::before { content: ''; position: absolute; inset: 0; background: #fff; transform: translateX(-100%); transition: transform 0.3s; z-index: -1; }
+  .form-submit-btn:hover { color: var(--bg); }
+  .form-submit-btn:hover::before { transform: translateX(0); }
+
+  /* ══════════════════════════════════════
+     QUALIFIER STRIP
+  ══════════════════════════════════════ */
+  .qualifier-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .qual-item { padding: 32px 28px; background: var(--surface); }
+  .qual-icon { font-size: 24px; margin-bottom: 12px; }
+  .qual-title { font-size: 11px; letter-spacing: 2px; color: var(--accent); margin-bottom: 8px; }
+  .qual-text { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--muted2); line-height: 1.85; letter-spacing: 0.03em; }
+
+  /* ══════════════════════════════════════
+     PHOTO BANNER & RANDOM PHOTO STRIP
+  ══════════════════════════════════════ */
+  .photo-banner {
+    height: clamp(180px, 28vw, 340px);
+    background: var(--surface2); background-size: cover; background-position: center;
+    position: relative; overflow: hidden;
+    border: 2px solid transparent; border-bottom: 2px solid transparent;
+    animation: borderGlow 3s ease-in-out infinite; animation-delay: 0.5s;
+  }
+
+  .rp-strip { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 4px; background: transparent; border-bottom: 1px solid var(--border); }
+  .rp-card { aspect-ratio: 3/4; background: var(--surface2); background-size: cover; background-position: center; position: relative; overflow: hidden; border: 2px solid transparent; animation: borderGlow 3s ease-in-out infinite; }
+  .rp-card:nth-child(1) { animation-delay: 0s; }
+  .rp-card:nth-child(2) { animation-delay: 0.6s; }
+  .rp-card:nth-child(3) { animation-delay: 1.2s; }
+  .rp-tall { aspect-ratio: 2/3; }
+  .rp-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%); }
+  .rp-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 2px dashed var(--border2); font-size: 22px; color: var(--muted); text-align: center; line-height: 1.8; }
+  .rp-placeholder span { font-size: 10px; letter-spacing: 1px; color: var(--border2); display: block; }
+
+  /* ══════════════════════════════════════
+     BEFORE / AFTER SLIDER
+  ══════════════════════════════════════ */
+  .ba-slider {
+    position: relative; width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    animation: borderGlow 3s ease-in-out infinite;
+    user-select: none; -webkit-user-select: none;
+    cursor: grab;
+  }
+  .ba-slider.is-swiping { cursor: grabbing; }
+
+  .ba-video {
+    position: absolute; inset: 0;
+    opacity: 0; visibility: hidden;
+    pointer-events: none;
+    transform: scale(1.03);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .ba-video.is-active {
+    opacity: 1; visibility: visible;
+    pointer-events: auto;
+    transform: scale(1); z-index: 2;
+  }
+
+  .ba-video video,
+  .ba-video img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    background: #000;
+  }
+
+  /* Play button overlay on video sliders */
+  .ba-play-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(0,0,0,0.25);
+    transition: background 0.3s ease;
+  }
+
+  .ba-play-overlay:hover { background: rgba(0,0,0,0.15); }
+
+  .ba-play-overlay.is-hidden { display: none; }
+
+  .ba-play-circle {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(209,84,26,0.9);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 24px rgba(209,84,26,0.4), 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .ba-play-overlay:hover .ba-play-circle {
+    transform: scale(1.1);
+    box-shadow: 0 0 32px rgba(209,84,26,0.6), 0 6px 16px rgba(0,0,0,0.4);
+  }
+
+  .ba-play-icon {
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 18px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 3px;
+  }
+
+  .ba-toggle {
+    position: absolute; top: 10px; right: 10px; z-index: 5;
+    padding: 6px 10px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(0,0,0,.5); color: #fff;
+    font-size: 10px; letter-spacing: 1.2px;
+    cursor: pointer; transition: all 0.25s ease;
+  }
+
+  .ba-toggle.is-after { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 10px rgba(209,84,26,0.5); }
+  .ba-toggle.is-before { background: rgba(0,0,0,0.85); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15); }
+
+  .ba-toggle-btn {
+    pointer-events: auto; position: absolute; bottom: 18px; left: 50%;
+    transform: translateX(-50%); z-index: 10;
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 20px;
+    background: rgba(0,0,0,0.6);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 30px; color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .ba-toggle-btn:hover { background: rgba(0,0,0,0.82); border-color: rgba(255,255,255,0.5); }
+  .ba-toggle-btn:active { transform: translateX(-50%) scale(0.96); }
+  .ba-toggle-icon { font-size: 10px; opacity: 0.8; }
+  .ba-toggle-text { font-size: 10px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; display: inline-block; }
+
+  .ba-ph-label { font-size: 10px; letter-spacing: 2px; color: #555; line-height: 1.6; }
+  .ba-ph-label small { font-size: 9px; color: #444; }
+
+  /* ══════════════════════════════════════
+     CLIENT RESULTS GRID
+  ══════════════════════════════════════ */
+  .results-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 48px; margin-top: 48px;
+  }
+
+  .result-card {
+    display: flex; flex-direction: column;
+    padding: 16px; border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .result-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.35);
+  }
+
+  .result-info { margin-top: 16px; }
+
+  .result-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+  .result-photo {
+    aspect-ratio: 3/4; background: var(--surface2);
+    background-size: cover; background-position: center;
+    border: 2px solid transparent; border-radius: 3px;
+    animation: borderGlow 3s ease-in-out infinite;
+    position: relative; overflow: hidden;
+  }
+  .result-photo:nth-child(2) { animation-delay: 0.4s; }
+
+  .result-photo-label { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: #fff; background: rgba(0,0,0,0.65); padding: 3px 10px; border-radius: 2px; }
+  .result-photo-label.after { color: var(--accent); }
+
+  .result-name {
+    margin: 0 0 8px 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 3px;
+    color: var(--accent);
+  }
+
+  .result-desc {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; line-height: 1.8;
+    color: var(--muted2); letter-spacing: 0.02em;
+  }
+
+  /* ══════════════════════════════════════
+     HORIZONTAL SCROLL TRACKS
+  ══════════════════════════════════════ */
+  .tscroll-track {
+    position: relative;
+    margin-top: 5px;
+    overflow: hidden;
+    contain: layout style;
+  }
+
+  .tscroll-inner {
+    display: flex; gap: 20px;
+    overflow-x: auto; overflow-y: hidden;
+    padding: 16px 60px 32px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+  .tscroll-inner::-webkit-scrollbar { display: none; }
+  .tscroll-inner:active { cursor: grabbing; }
+  .tscroll-inner .tvcard { flex: 0 0 220px; }
+
+  .results-video-scroll { margin-top: 38px; position: relative; }
+  .results-video-scroll .tscroll-inner { padding-top: 8px; }
+  .results-video-scroll .tvcard { flex: 0 0 260px; }
+  .results-video-scroll .tvcard-desc { text-align: center; }
+  .results-video-scroll .tvcard-name { font-size: 18px; letter-spacing: 2.4px; }
+
+  .results-mini-ba { width: 100%; aspect-ratio: 9/16; min-height: 0; }
+  .results-mini-ba .ba-toggle-btn { bottom: 12px; padding: 8px 16px; font-size: 10px; letter-spacing: 1.6px; }
+  .results-mini-ba .ba-toggle-icon { font-size: 8px; }
+
+  .results-mini-ba::after {
+    content: ''; position: absolute; inset: auto 0 0; height: 28%;
+    background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+    pointer-events: none; z-index: 3;
+  }
+
+  .results-mini-labels { position: absolute; inset: auto 12px 54px; display: flex; justify-content: space-between; gap: 12px; z-index: 4; pointer-events: none; }
+  .results-mini-tag { padding: 5px 10px; border-radius: 999px; background: rgba(0,0,0,0.72); border: 1px solid rgba(255,255,255,0.16); color: #fff; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.7px; }
+  .results-mini-tag.after { color: var(--accent); }
+
+  .results-mini-play-btn {
+    pointer-events: auto; position: absolute; top: 12px; right: 12px; z-index: 5;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    min-width: 82px; padding: 8px 12px;
+    border-radius: 999px; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.68); color: #fff;
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase;
+    cursor: pointer; transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .results-mini-play-btn:hover { transform: translateY(-1px); background: rgba(209,84,26,0.18); border-color: rgba(209,84,26,0.75); }
+  .results-mini-play-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .results-mini-play-btn.is-playing { background: rgba(209,84,26,0.24); border-color: rgba(255,156,25,0.92); }
+  .results-mini-play-icon { font-size: 10px; line-height: 1; }
+
+  /* Fade edges */
+  .tscroll-fade-left,
+  .tscroll-fade-right {
+    position: absolute; top: 0; bottom: 0; width: 80px; pointer-events: none; z-index: 2;
+  }
+  .tscroll-fade-left { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+  .tscroll-fade-right { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+
+  /* Scroll hint */
+  .scroll-hint { display: flex; align-items: center; gap: 12px; margin-top: 4px; margin-bottom: 4px; opacity: 0.45; }
+  .scroll-hint-text { font-size: 9px; letter-spacing: 4px; color: var(--muted); }
+  .scroll-hint-arrow { font-size: 13px; color: var(--accent); animation: hintPulse 1.8s ease-in-out infinite; }
+  .scroll-hint-arrow:last-child { animation-delay: 0.9s; }
+  .scroll-hint-arrow:first-child { animation-name: hintPulseLeft; }
+
+  @keyframes hintPulse { 0%, 100% { opacity: 0.3; transform: translateX(0); } 50% { opacity: 1; transform: translateX(3px); } }
+  @keyframes hintPulseLeft { 0%, 100% { opacity: 0.3; transform: translateX(0); } 50% { opacity: 1; transform: translateX(-3px); } }
+
+  /* Nav arrows */
+  .tscroll-nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(10,10,10,0.85); border: 1.5px solid #d1541a;
+    color: #d1541a; font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 10px rgba(209,84,26,0.4);
+  }
+  .tscroll-nav-btn:hover { background: #d1541a; color: #fff; box-shadow: 0 0 18px rgba(209,84,26,0.7); }
+  .tscroll-btn-prev { left: 10px; }
+  .tscroll-btn-next { right: 10px; }
+
+  .results-scroll-header { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 18px 0; text-align: center; }
+  .results-scroll-label { font-family: 'Bebas Neue', sans-serif; font-size: clamp(24px, 3vw, 34px); letter-spacing: 0.08em; color: #ffffff; }
+  .results-scroll-arrow { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid rgba(209,84,26,0.5); background: rgba(255,255,255,0.03); color: var(--accent); font-size: 20px; line-height: 1; box-shadow: 0 0 10px rgba(209,84,26,0.18); cursor: pointer; transition: all 0.2s; }
+  .results-scroll-arrow:hover { background: var(--accent); color: #000; box-shadow: 0 0 18px rgba(209,84,26,0.5); }
+
+  .results-video-scroll .tscroll-nav-btn { display: flex; }
+
+  /* ══════════════════════════════════════
+     PAGE PROGRESS SLIDER
+  ══════════════════════════════════════ */
+  #page-progress-slider { position: fixed; right: 16px; top: 50%; transform: translateY(-50%); z-index: 9000; display: flex; flex-direction: column; align-items: center; gap: 0; pointer-events: none; user-select: none; }
+  #page-progress-track { position: relative; width: 4px; height: 160px; background: rgba(255,255,255,0.12); border-radius: 2px; pointer-events: all; cursor: pointer; }
+  #page-progress-fill { position: absolute; top: 0; left: 0; width: 100%; border-radius: 2px; background: linear-gradient(to bottom, #d1541a, #ff9c19); box-shadow: 0 0 8px rgba(209,84,26,0.6); transition: height 0.1s; pointer-events: none; }
+  #page-progress-thumb { position: absolute; left: 50%; transform: translateX(-50%) translateY(-50%); width: 14px; height: 14px; border-radius: 50%; background: #d1541a; border: 2px solid #fff; box-shadow: 0 0 10px rgba(209,84,26,0.7); pointer-events: all; cursor: grab; transition: top 0.1s; z-index: 2; }
+  #page-progress-thumb:active { cursor: grabbing; }
+
+  /* ══════════════════════════════════════
+     GLITCH BUTTON
+  ══════════════════════════════════════ */
+  .btn-wrapper { width: 100%; display: flex; justify-content: center; align-items: center; margin: 60px 0; }
+
+  .glitch-btn {
+    position: relative; display: inline-block;
+    padding: 24px 64px; font-size: 18px; font-weight: 600;
+    color: var(--accent); text-decoration: none; text-transform: uppercase; letter-spacing: 4px;
+    background: #000; border: 1px solid rgba(209,84,26,0.4); border-radius: var(--radius); overflow: hidden;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 24px rgba(209,84,26,0.2), 0 0 8px rgba(209,84,26,0.15);
+  }
+  .glitch-btn:hover {
+    color: #fff;
+    border-color: rgba(209,84,26,0.8);
+    box-shadow: 0 0 32px rgba(209,84,26,0.4), 0 0 64px rgba(209,84,26,0.15), 0 8px 24px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
+  }
+
+  .glitch-btn::before,
+  .glitch-btn::after { display: none; }
+
+  /* ══════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 60px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: #fff;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--accent); letter-spacing: 4px; }
+
+  .footer-meta {
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center;
+    font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.6);
+  }
+
+  .footer-meta span { white-space: nowrap; }
+
+  .footer-back-top {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 3px;
+    padding: 12px 28px;
+    border: 1px solid rgba(209,84,26,0.3);
+    border-radius: 999px;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+  }
+
+  .footer-back-top:hover {
+    border-color: rgba(209,84,26,0.6);
+    box-shadow: 0 0 16px rgba(209,84,26,0.2);
+    transform: translateY(-2px);
+  }
+
+  .footer-sub { background: var(--bg); border-top: 1px solid var(--border); padding: 40px 60px; }
+  .footer-sub-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
+  .footer-sub-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: 0.7; margin-bottom: 16px; text-transform: uppercase; }
+
+  .footer-link {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; color: var(--muted2);
+    text-decoration: none; letter-spacing: 0.5px; line-height: 1.85;
+    margin-bottom: 10px; transition: color 0.2s; cursor: none;
+  }
+  .footer-link:hover { color: var(--accent); }
+  .footer-icon { font-size: 11px; color: var(--accent); opacity: 0.7; width: 14px; text-align: center; flex-shrink: 0; }
+  .footer-credit-name { font-size: 13px; color: var(--text); letter-spacing: 1px; margin-bottom: 8px; font-family: 'DM Mono', monospace; }
+  .footer-credit-email { opacity: 0.6; font-size: 11px; }
+
+  /* ══════════════════════════════════════
+     ANIMATIONS
+  ══════════════════════════════════════ */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  @keyframes arrowPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+  .live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; margin-right: 8px; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ══════════════════════════════════════
+     SKILLS SHOWCASE GRID
+  ══════════════════════════════════════ */
+  .skills-showcase {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .skills-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 3px;
+  }
+
+  .skills-showcase-item {
+    aspect-ratio: 3/4;
+    background: var(--surface2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skills-showcase-item.wide {
+    grid-column: 1 / -1;
+    aspect-ratio: 21/9;
+  }
+
+  .skills-showcase-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    filter: grayscale(0.15);
+  }
+
+  .skills-showcase-item:hover img {
+    transform: scale(1.06);
+    filter: grayscale(0);
+  }
+
+  .skills-showcase-item::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .skills-showcase-label {
+    position: absolute;
+    bottom: 12px; left: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.7);
+    z-index: 2;
+    text-transform: uppercase;
+  }
+
+  /* Pre-apply cinematic strip */
+  .pre-apply-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .pre-apply-strip-item {
+    aspect-ratio: 3/4;
+    background: var(--surface2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pre-apply-strip-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    filter: grayscale(0.25);
+    transition: filter 0.4s ease;
+  }
+
+  .pre-apply-strip-item:hover img {
+    filter: grayscale(0);
+  }
+
+  .pre-apply-strip-item::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(5,5,5,0.5) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .skills-showcase-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .skills-showcase-item { aspect-ratio: 3/4; }
+    .skills-showcase-item.wide { aspect-ratio: 16/7; }
+    .skills-showcase-label { font-size: 8px; bottom: 8px; left: 8px; }
+    .pre-apply-strip { grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+    .pre-apply-strip-item { aspect-ratio: 3/4; }
+  }
+
+  /* ══════════════════════════════════════
+     COACH SECTION — RESTRUCTURED
+  ══════════════════════════════════════ */
+  .about-section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .coach-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .coach-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .coach-header .section-label {
+    justify-content: center;
+  }
+
+  .coach-header .section-label::after {
+    display: none;
+  }
+
+  .coach-header .section-title {
+    text-align: center;
+  }
+
+  .coach-header .section-subtitle {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .coach-photo-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  .coach-photo-col .result-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .coach-details-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .coach-about-cards {
+    margin-top: 0;
+  }
+
+  .coach-cta-wrap {
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .coach-cta-wrap .btn-primary {
+    display: inline-block;
+  }
+
+  /* ══════════════════════════════════════
+     PHILOSOPHY SECTION — RESTRUCTURED
+  ══════════════════════════════════════ */
+  .philosophy-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 100px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .philosophy-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .philosophy-section > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .philosophy-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .philosophy-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .philosophy-header .section-label {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .philosophy-header .section-label::after {
+    display: none;
+  }
+
+  .philosophy-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: -1px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .philosophy-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--muted2);
+    line-height: 1.85;
+    letter-spacing: 0.03em;
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .philosophy-flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    counter-reset: philosophy-step;
+  }
+
+  .philosophy-step {
+    background: rgba(17,17,20,0.7);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .philosophy-step::before {
+    counter-increment: philosophy-step;
+    content: counter(philosophy-step, decimal-leading-zero);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--accent);
+    opacity: 0.15;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    line-height: 1;
+  }
+
+  .philosophy-step:hover {
+    border-color: rgba(209,84,26,0.4);
+    box-shadow: -3px 0 18px rgba(209,84,26,0.12), 3px 0 18px rgba(209,84,26,0.12);
+  }
+
+  .philosophy-step--highlight {
+    border-color: var(--accent);
+    box-shadow: -3px 0 18px rgba(209,84,26,0.18), 3px 0 18px rgba(209,84,26,0.18), 0 3px 18px rgba(209,84,26,0.10), 0 -3px 18px rgba(209,84,26,0.10);
+  }
+
+  .philosophy-step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .philosophy-step-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.85;
+    letter-spacing: 0.03em;
+  }
+
+  .philosophy-step-text strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE — TABLET (≤ 900px)
+  ══════════════════════════════════════ */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .section { padding: 60px 24px; }
+    .cta-banner { padding: 60px 24px; }
+    .coach-hero { grid-template-columns: 1fr; gap: 32px; }
+    .coach-details-col { order: 1; }
+    .coach-photo-col { order: 2; }
+    #coach { grid-template-columns: 1fr; gap: 32px; }
+    .coach-info-stack { order: 1; }
+    #coach > .result-card { order: 2; }
+    .system-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; gap: 22px; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .qualifier-strip { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .hero-stats-row { gap: 24px; }
+    #hero { padding: 120px 24px 80px; }
+    .tscroll-track:not(.results-video-scroll) .tscroll-nav-btn { display: none; }
+    .results-video-scroll .tscroll-nav-btn { display: flex; }
+    #page-progress-slider { display: none; }
+    .testimonials-video-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE — MOBILE (≤ 768px)
+  ══════════════════════════════════════ */
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+
+    @keyframes trainingFlickerMobile {
+      0%    { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      27.0% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      27.5% { opacity:0.15; text-shadow: none; }
+      28.0% { opacity:1; text-shadow: 0 0 5px #FF4500, 0 0 14px #FF4500, 0 0 25px rgba(255,69,0,0.5); }
+      28.5% { opacity:0.15; text-shadow: none; }
+      29.5% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      62.0% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      62.5% { opacity:0.15; text-shadow: none; }
+      63.0% { opacity:1; text-shadow: 0 0 5px #FF4500, 0 0 14px #FF4500, 0 0 25px rgba(255,69,0,0.5); }
+      63.5% { opacity:0.15; text-shadow: none; }
+      64.0% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      64.5% { opacity:0.15; text-shadow: none; }
+      65.5% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      100%  { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; width: 100%;
+      display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 12px 16px;
+      border-radius: 0; margin: 0;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      box-shadow: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-brand { text-align: left; font-size: 18px; line-height: 1; margin: 0; flex: 1; }
+    .nav-cta {
+      width: auto; white-space: nowrap; text-align: center;
+      font-size: 9px; padding: 10px 16px;
+      min-height: auto; flex-shrink: 0;
+      border-radius: 4px;
+    }
+
+    #hero { padding: 100px 20px 60px; min-height: 100vh; min-height: 100dvh; text-align: center; }
+    #hero > * { text-align: center !important; }
+
+    .hero-training-wrap { display: inline; margin: 0; white-space: normal; }
+    .hero-training-wrap,
+    .hero-training-letter,
+    .strength-glow {
+      animation: trainingFlickerMobile 7.4s linear infinite !important;
+    }
+    .hero-sub { margin: 22px auto 0; text-align: center !important; max-width: 100%; }
+    .hero-tagline { font-size: 14px; max-width: 100%; padding: 0 8px; }
+    .hero-accent-line { font-size: 11px; letter-spacing: 0.1em; padding: 10px 20px; margin-top: 24px; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 4px; margin-bottom: 24px; }
+    h1.hero-title { font-size: clamp(34px, 11vw, 80px); letter-spacing: 0.06em; }
+    .hero-title-secondary { font-size: 0.48em; letter-spacing: 0.2em; margin-top: 6px; }
+    .hero-divider { margin: 24px auto; }
+    .hero-cta-wrap { flex-direction: column; align-items: center; width: 100%; }
+    .hero-cta-wrap .btn-primary,
+    .hero-cta-wrap .btn-ghost { width: 100%; max-width: 320px; text-align: center; }
+
+    .hero-pillars { justify-content: center; gap: 10px; }
+    .hero-pillar { font-size: clamp(18px, 7vw, 34px); letter-spacing: 0.12em; white-space: normal; }
+    .hero-pillar-sep { display: none; }
+
+    .hero-stats-row { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 28px; }
+    .hstat { padding-left: 14px; }
+    .hstat-num { font-size: 36px; }
+
+    .hero-cta-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 28px; }
+
+    .btn-primary, .btn-ghost, .form-submit-btn {
+      width: 100%; text-align: center; padding: 16px 18px; font-size: 11px;
+    }
+
+    .section, .cta-banner, .submax-intro-section, .philosophy-section, .video-wrap, .footer-sub, footer {
+      padding-left: 16px !important; padding-right: 16px !important;
+    }
+    .section { padding-top: 52px !important; padding-bottom: 52px !important; }
+
+    /* ── Mobile centering for ALL section content ── */
+    .section-label { justify-content: center; }
+    .section-label::after { display: none; }
+    .section-title, .video-title, .cta-banner-title {
+      font-size: clamp(30px, 10vw, 48px); line-height: 1;
+      text-align: center;
+    }
+
+    .section-subtitle, .video-sub, .cta-banner-sub, .coach-bio, .qual-text, .result-desc, .tcard-text {
+      font-size: 14px; line-height: 1.7; max-width: 100%;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Tighten video section spacing on mobile */
+    .video-wrap { padding: 28px 16px 16px !important; }
+    .video-sub { margin-bottom: 20px !important; }
+    .video-container { margin: 0 16px; }
+
+    /* Tighten testimonial scroll-hint to track gap on mobile */
+    .scroll-hint { margin-bottom: 0 !important; }
+    .tscroll-track { margin-top: 2px !important; }
+    .tscroll-inner { padding-top: 6px !important; }
+
+    #coach, .submax-cards, .system-grid, .results-grid, .testimonials-grid,
+    .qualifier-strip, .form-grid, .footer-sub-inner, .testimonials-video-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .coach-stat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .result-photos { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    .tvcard, .tcard, .system-card, .submax-card, .qual-item, .coach-stat { padding: 18px; }
+
+    .video-container, .tvcard-video-wrap, .ba-slider, .result-photo, .coach-image { border-radius: 14px; }
+
+    .form-input, .form-select, .form-textarea { font-size: 16px; padding: 14px; }
+    .radio-group { display: grid; grid-template-columns: 1fr; }
+    .radio-opt { min-width: unset; }
+
+    .rp-strip { grid-template-columns: repeat(3, minmax(0,1fr)) !important; gap: 6px !important; padding: 0 12px 18px !important; align-items: start !important; }
+    .rp-card, .rp-tall, .rp-strip > * { min-width: 0 !important; aspect-ratio: 1 / 1.12 !important; min-height: 96px !important; max-height: 145px !important; overflow: hidden !important; }
+    .rp-card img, .rp-tall img, .rp-strip img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }
+
+    .tscroll-inner { padding: 10px 16px 24px; scroll-snap-type: x mandatory; }
+    .tscroll-inner .tvcard, .results-video-scroll .tvcard { flex: 0 0 86vw; scroll-snap-align: center; }
+
+    .tvcard {
+      padding: 18px; border-radius: 24px;
+      background: linear-gradient(180deg, rgba(18,18,18,0.98), rgba(7,7,7,0.98));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.32);
+    }
+
+    .tvcard-video-wrap, .results-mini-ba, .ba-slider { border-radius: 20px; }
+    .tvcard-play-btn { width: 100%; min-height: 50px; padding: 13px 18px; font-size: 12px; letter-spacing: 1.8px; gap: 10px; }
+    .tvcard-name { font-size: 22px; letter-spacing: 2.8px; text-align: center; }
+    .tvcard-desc { font-size: 12px; line-height: 1.7; text-align: center; }
+
+    .results-mini-ba { aspect-ratio: 4 / 5.35; border-radius: 20px; }
+    .results-mini-ba .ba-toggle-btn { max-width: none; width: calc(100% - 24px); bottom: 12px; min-height: 50px; padding: 12px 18px; font-size: 11px; letter-spacing: 1.7px; }
+    .results-mini-labels { inset: auto 12px 68px; }
+    .results-mini-tag { font-size: 9px; letter-spacing: 1.6px; padding: 6px 10px; }
+    .results-mini-play-btn { top: 8px; right: 8px; min-width: 70px; font-size: 9px; }
+
+    .tscroll-fade-left, .tscroll-fade-right, #page-progress-slider { display: none !important; }
+    .results-more-hint, .results-scroll-header { display: flex !important; }
+
+    .results-video-scroll { display: block !important; position: relative !important; overflow: visible !important; }
+    .results-video-scroll .tscroll-track { overflow: visible; }
+    .results-video-scroll .tscroll-inner { display: flex; gap: 16px; padding: 10px 16px 24px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .results-video-scroll .tvcard { scroll-snap-align: center; }
+
+    .results-video-scroll .tscroll-nav-btn {
+      display: flex !important;
+      width: 44px !important; height: 44px !important;
+      top: 38% !important; border-radius: 999px !important;
+      background: rgba(8,8,8,.86) !important;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      box-shadow: 0 10px 22px rgba(0,0,0,.28) !important;
+      z-index: 30 !important;
+    }
+    .results-video-scroll .tscroll-btn-prev { left: 8px !important; }
+    .results-video-scroll .tscroll-btn-next { right: 8px !important; }
+
+    .scroll-hint {
+      display: flex !important; align-items: center !important; justify-content: center !important;
+      gap: 10px !important; margin: 10px auto 16px !important; opacity: 1 !important; visibility: visible !important;
+    }
+    .scroll-hint-text { font-size: 10px !important; letter-spacing: 1.8px !important; }
+
+    .results-scroll-header, .results-more-hint {
+      display: flex !important; align-items: center !important; justify-content: center !important;
+      gap: 10px !important; width: 100% !important; margin: 12px auto 8px !important;
+      text-align: center !important; opacity: 1 !important; visibility: visible !important;
+    }
+    .results-scroll-label { display: inline-block !important; font-size: 20px !important; line-height: 1.1 !important; letter-spacing: 1.4px !important; white-space: normal !important; }
+    .results-scroll-arrow, .scroll-hint-arrow { display: flex !important; align-items: center !important; justify-content: center !important; opacity: 1 !important; visibility: visible !important; }
+
+    .ba-toggle-btn, .hero-cta, .secondary-cta, .btn-primary, .coach-cta-row a, .coach-cta-row button {
+      width: 100%; justify-content: center; min-height: 52px; font-size: 12px; letter-spacing: 1.8px;
+    }
+
+    .hero-pillars, .hero-stats-row, .hero-cta-row { justify-content: center; margin-left: auto; margin-right: auto; }
+
+    footer, .footer-sub { padding-inline: 20px; }
+    .footer-sub-inner { flex-direction: column; gap: 24px; }
+
+    /* ── Coach section mobile centering ── */
+    .coach-hero { grid-template-columns: 1fr !important; gap: 28px; }
+    .coach-details-col { order: 1; text-align: center; }
+    .coach-photo-col { order: 2; }
+    .coach-photo-col .result-card { max-width: 340px; }
+    .coach-header { margin-bottom: 20px; }
+    .cs-label { text-align: center; }
+    .coach-stat { text-align: center; }
+    .about-section { padding: 60px 16px !important; background-attachment: scroll !important; }
+
+    /* ── Philosophy section mobile ── */
+    .philosophy-section { padding: 60px 16px !important; }
+    .philosophy-flow { grid-template-columns: 1fr !important; }
+    .philosophy-title { font-size: clamp(30px, 10vw, 48px); }
+    .philosophy-step { text-align: center; }
+    .philosophy-step::before { position: static; display: block; margin-bottom: 8px; opacity: 0.25; font-size: 36px; }
+    .philosophy-step-title { text-align: center; }
+    .philosophy-step-text { text-align: center; }
+
+    /* ── SubMax intro cards mobile centering ── */
+    .submax-card { text-align: center; }
+    .submax-card-title { text-align: center; }
+
+    /* ── Result cards mobile centering ── */
+    .result-info { text-align: center; }
+    .result-name { text-align: center; }
+    .result-desc { text-align: center; }
+
+    /* ── Video section mobile centering ── */
+    .video-label { text-align: center; }
+    .video-title { text-align: center; }
+    .video-sub { text-align: center; }
+    .video-after-cta { text-align: center; }
+
+    /* ── Application section mobile centering ── */
+    #apply .section-label { justify-content: center; }
+    #apply .section-title { text-align: center; }
+    #apply .section-subtitle { text-align: center; margin-left: auto; margin-right: auto; }
+
+    /* ── Footer mobile centering ── */
+    footer { justify-content: center; text-align: center; }
+    .footer-contact { text-align: center; width: 100%; }
+    .footer-link { justify-content: center; }
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE — SMALL MOBILE (≤ 600px)
+  ══════════════════════════════════════ */
+  @media (max-width: 600px) {
+    .submax-cards { grid-template-columns: 1fr; }
+    .submax-intro-section { padding: 60px 24px; }
+    .ba-toggle-btn { font-size: 11px; padding: 10px 14px; bottom: 10px; width: calc(100% - 24px); max-width: none; }
+    .testimonials-video-grid { grid-template-columns: 1fr; }
+    .philosophy-flow { gap: 16px; }
+  }
+
+  /* Desktop overrides */
+  @media (min-width: 601px) {
+    .tscroll-inner .tvcard { flex: 0 0 220px; }
+    .results-video-scroll .tvcard { flex: 0 0 260px; }
+    .results-mini-ba { aspect-ratio: 9/16; }
+    .submax-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  /* ══════════════════════════════════════
+     TESTIMONIAL PLAY OVERLAY
+  ══════════════════════════════════════ */
+  .tcard-play-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(0,0,0,0.25);
+    transition: background 0.3s ease;
+  }
+  .tcard-play-overlay:hover { background: rgba(0,0,0,0.15); }
+  .tcard-play-overlay.is-hidden { display: none; }
+  .tcard-play-overlay .ba-play-circle {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(209,84,26,0.9);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 24px rgba(209,84,26,0.4), 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tcard-play-overlay:hover .ba-play-circle {
+    transform: scale(1.1);
+    box-shadow: 0 0 32px rgba(209,84,26,0.6), 0 6px 16px rgba(0,0,0,0.4);
+  }
+  .tcard-play-overlay .ba-play-icon {
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 18px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 3px;
+  }
+
+  
+  /* ══════════════════════════════════════
+     TESTIMONIAL VIDEO — LOCAL VIDEO FIXES
+  ══════════════════════════════════════ */
+  .tvcard-video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border2);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .tvcard-video-wrap:hover {
+    border-color: rgba(209,84,26,0.4);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 16px rgba(209,84,26,0.15);
+  }
+
+  .tvcard-video-wrap video.tvcard-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #000;
+    border: 0;
+    border-radius: 12px;
+  }
+
+  /* Play overlay responsive sizing */
+  .tcard-play-overlay .ba-play-circle {
+    width: 56px; height: 56px;
+  }
+
+  @media (max-width: 768px) {
+    .tvcard-video-wrap {
+      border-radius: 20px;
+    }
+
+    .tvcard-video-wrap video.tvcard-video {
+      border-radius: 20px;
+    }
+
+    .tcard-play-overlay .ba-play-circle {
+      width: 52px; height: 52px;
+    }
+
+    .tcard-play-overlay .ba-play-icon {
+      border-width: 9px 0 9px 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tcard-play-overlay .ba-play-circle {
+      width: 46px; height: 46px;
+    }
+
+    .tcard-play-overlay .ba-play-icon {
+      border-width: 8px 0 8px 14px;
+      margin-left: 2px;
+    }
+  }
+
+  
+  /* ══════════════════════════════════════
+     TESTIMONIAL VIDEO — ANTI-BLACK-FLASH
+  ══════════════════════════════════════ */
+  /* Keep video invisible until first frame is painted, so poster shows through */
+  .tvcard-video-wrap video.tvcard-video {
+    background: transparent;
+  }
+  .tvcard-video-wrap video.tvcard-video:not([data-has-frames]) {
+    opacity: 0;
+  }
+  .tvcard-video-wrap video.tvcard-video[data-has-frames] {
+    opacity: 1;
+    transition: opacity 0.15s ease;
+  }
+  /* Poster image as background fallback on the wrap itself */
+  .tvcard-video-wrap[data-poster] {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
+  }
+
+  </style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+
+<!-- Canvas layers -->
+<div id="page-progress-slider">
+  <div id="page-progress-track">
+    <div id="page-progress-fill"></div>
+    <div id="page-progress-thumb"></div>
+  </div>
+</div>
+<canvas id="aura-canvas"></canvas>
+<canvas id="fire-canvas"></canvas>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════ -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-brand">STEVETHNX</a>
+  <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="nav-cta">APPLY NOW</a>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-glow-center"></div>
+
+  <div class="hero-content">
+
+    <!-- Eyebrow -->
+    <div class="hero-eyebrow">SUBMAX COACHING SYSTEM</div>
+
+    <!-- Main statement -->
+    <h1 class="hero-title">
+      TRUE STRENGTH IS<br>
+      <span class="hero-training-wrap" style="letter-spacing: 0.03em;">
+        <span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="N">N</span><span class="hero-training-letter" data-l="G">G</span><span class="hero-training-letter" data-l="I">I</span><span class="hero-training-letter" data-l="N">N</span><span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="R">R</span><span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="D">D</span><span class="hero-training-letter" data-l=".">.</span>
+      </span>
+      <span class="hero-title-secondary">NOT LEFT TO CHANCE.</span>
+    </h1>
+
+    <!-- Accent statement -->
+    <p class="hero-accent-line">Calisthenics coaching built on science—not ego.</p>
+
+    <!-- Supporting tagline -->
+    <p class="hero-tagline">
+      A structured, methodical system designed to help you master advanced skills, regardless of your starting point or physical predispositions.
+    </p>
+
+    <!-- Divider -->
+    <div class="hero-divider"></div>
+
+    <!-- CTA -->
+    <div class="hero-cta-wrap">
+      <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="btn-primary">APPLY FOR COACHING</a>
+      <a href="#video-section" class="btn-ghost">WATCH THE METHOD ↓</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 — VSL
+════════════════════════════════════════ -->
+<div class="full-section" id="video-section">
+  <div class="video-wrap reveal">
+    <div class="video-label">— WATCH BEFORE YOU APPLY —</div>
+    <h3 class="video-title">THE SUBMAX METHOD<br>EXPLAINED.</h3>
+    <p class="video-sub">
+      Watch Steven break down the system that has helped hundreds of athletes achieve remarkable progress in calisthenics. Understand who it's for, how it works, and the science that drives its results.
+    </p>
+  </div>
+
+  <div class="video-container">
+    <iframe
+      id="yt-iframe"
+      width="560" height="315"
+      data-src="https://www.youtube.com/embed/WXLxvGRDpWg"
+      title="YouTube video player"
+      frameborder="0"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="video-after-cta">
+    <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="btn-primary">READY? APPLY NOW</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 3A — CLIENT RESULTS (BEFORE/AFTER SLIDER)
+════════════════════════════════════════ -->
+<section style="border-bottom: 1px solid var(--border);">
+  <div class="section">
+    <div class="section-label reveal">CLIENT RESULTS</div>
+    <h2 class="section-title reveal">A SYSTEM IS ONLY AS VALUABLE<br>AS THE RESULTS IT PRODUCES.</h2>
+    <p class="section-subtitle reveal">
+      One system. Hundreds of athletes. Proven outcomes. The SubMax Method demonstrates consistent, repeatable success across athletes of all backgrounds, validating its effectiveness through real-world application.
+    </p>
+
+    <div class="results-grid reveal">
+
+      <!-- RESULT 1 — KEVIN -->
+      <div class="tvcard">
+        <div class="ba-slider" data-name="KEVIN">
+          <button class="ba-toggle" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="kevin-after">
+            <video muted playsinline preload="none" loop poster="Client Results/Kevin/kevin-after-thumb.jpg">
+              <source data-src="Client Results/Kevin/kevin-after.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ba-before ba-video is-active" id="kevin-before">
+            <video muted playsinline preload="none" loop poster="Client Results/Kevin/kevin-before-thumb.jpg">
+              <source data-src="Client Results/Kevin/kevin-before.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="result-info">
+          <div class="result-name">KEVIN</div>
+          <p class="result-desc">15-Month Planche Transformation — From barely holding a full planche to executing clean full planche push-up combinations, including presses—at over 180 lbs.</p>
+        </div>
+      </div>
+
+      <!-- RESULT 2 — JOSHUA -->
+      <div class="tvcard">
+        <div class="ba-slider" data-name="JOSHUA">
+          <button class="ba-toggle" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="joshua-after">
+            <video muted playsinline preload="none" loop poster="Client Results/Joshua/joshua-after-thumb.jpg">
+              <source data-src="Client Results/Joshua/joshua-after.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ba-before ba-video is-active" id="joshua-before">
+            <video muted playsinline preload="none" loop poster="Client Results/Joshua/joshua-before-thumb.jpg">
+              <source data-src="Client Results/Joshua/joshua-before.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="result-info">
+          <div class="result-name">JOSHUA</div>
+          <p class="result-desc">10-Month Planche &amp; Front Lever Transformation — From struggling with advanced tuck progressions to achieving a 10-second full planche and performing full front lever pull-ups.</p>
+        </div>
+      </div>
+
+      <!-- RESULT 3 — TORYN -->
+      <div class="tvcard">
+        <div class="ba-slider" data-name="TORYN">
+          <button class="ba-toggle" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="toryn-after">
+            <video muted playsinline preload="none" loop poster="Client Results/Toryn/toryn-after-thumb.jpg">
+              <source data-src="Client Results/Toryn/toryn-after.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ba-before ba-video is-active" id="toryn-before">
+            <video muted playsinline preload="none" loop poster="Client Results/Toryn/toryn-before-thumb.jpg">
+              <source data-src="Client Results/Toryn/toryn-before.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="result-info">
+          <div class="result-name">TORYN</div>
+          <p class="result-desc">4-Month One-Arm Handstand Transformation — From limited weight-shifting ability to holding a 15-second one-arm handstand on a BOSU ball and parallel bars.</p>
+        </div>
+      </div>
+
+      <!-- RESULT 4 — BRAXTON -->
+      <div class="tvcard">
+        <div class="ba-slider" data-name="BRAXTON">
+          <button class="ba-toggle" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="braxton-after">
+            <video muted playsinline preload="none" loop poster="Client Results/Braxton/braxton-after-thumb.jpg">
+              <source data-src="Client Results/Braxton/braxton-after.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ba-before ba-video is-active" id="braxton-before">
+            <video muted playsinline preload="none" loop poster="Client Results/Braxton/braxton-before-thumb.jpg">
+              <source data-src="Client Results/Braxton/braxton-before.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="result-info">
+          <div class="result-name">BRAXTON</div>
+          <p class="result-desc">3-Month Planche Transformation — From improper bent-arm mechanics to full planche combinations, including a fingertip full planche.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- More results scroll -->
+<div class="results-scroll-header results-more-hint reveal" aria-hidden="true">
+  <button class="results-scroll-arrow" id="results-arrow-prev" type="button" aria-label="Scroll left">←</button>
+  <span class="results-scroll-label">AND HUNDREDS MORE...</span>
+  <button class="results-scroll-arrow" id="results-arrow-next" type="button" aria-label="Scroll right">→</button>
+</div>
+
+<div class="tscroll-track results-video-scroll">
+  <button class="tscroll-nav-btn tscroll-btn-prev" type="button" aria-label="Previous client result video">&#8249;</button>
+  <button class="tscroll-nav-btn tscroll-btn-next" type="button" aria-label="Next client result video">&#8250;</button>
+
+  <div class="tscroll-inner">
+
+    <!-- KENTO -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="KENTO">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="kento-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Kento/kento-after-thumb.jpg">
+            <source data-src="Client Results/Kento/kento-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="kento-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Kento/kento-before-thumb.jpg">
+            <source data-src="Client Results/Kento/kento-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">KENTO</div>
+      <div class="tvcard-desc">4-Month Planche & Front Lever Transformation — From tuck variations to a clean 5-second straddle planche and a 10-second full front lever.</div>
+    </div>
+
+    <!-- TRISTAN -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="TRISTAN">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="tristan-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Tristan/tristan-after-thumb.jpg">
+            <source data-src="Client Results/Tristan/tristan-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="tristan-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Tristan/tristan-before-thumb.jpg">
+            <source data-src="Client Results/Tristan/tristan-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">TRISTAN</div>
+      <div class="tvcard-desc">4-Month Front Lever & HSPU Transformation — From weak pike push-ups and inconsistent holds to full freestanding handstand push-ups and a clean 10-second front lever.</div>
+    </div>
+
+    <!-- AMAURY -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="AMAURY">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="amaury-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Amaury/amaury-after-thumb.jpg">
+            <source data-src="Client Results/Amaury/amaury-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="amaury-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Amaury/amaury-before-thumb.jpg">
+            <source data-src="Client Results/Amaury/amaury-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">AMAURY</div>
+      <div class="tvcard-desc">3-Month HSPU Transformation — From inconsistent handstands and zero handstand push up reps to consistent 5+ rep sets.</div>
+    </div>
+
+    <!-- DARIAN -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="DARIAN">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="darian-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Darian/darian-after-thumb.jpg">
+            <source data-src="Client Results/Darian/darian-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="darian-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Darian/darian-before-thumb.jpg">
+            <source data-src="Client Results/Darian/darian-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">DARIAN</div>
+      <div class="tvcard-desc">2-Month Front Lever Pull Up Transformation — From weak advanced tuck pull ups to repping out full front lever pull ups.</div>
+    </div>
+
+    <!-- GUS -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="GUS">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="gus-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Gus/gus-after-thumb.jpg">
+            <source data-src="Client Results/Gus/gus-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="gus-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Gus/gus-before-thumb.jpg">
+            <source data-src="Client Results/Gus/gus-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">GUS</div>
+      <div class="tvcard-desc">5-Month HSPU & Front Lever Transformation — From basic progressions to 5+ clean handstand push-ups and a solid 7-second front lever hold.</div>
+    </div>
+
+    <!-- STEVEN -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="STEVEN">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="steven-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Steven/steven-after-thumb.jpg">
+            <source data-src="Client Results/Steven/steven-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="steven-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Steven/steven-before-thumb.jpg">
+            <source data-src="Client Results/Steven/steven-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">STEVEN</div>
+      <div class="tvcard-desc">3-Month Planche & Front Lever Transformation — From tuck-level strength and poor mechanics to a clean 5-second straddle planche and full front lever.</div>
+    </div>
+
+    <!-- COLIN -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="COLIN">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="colin-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Colin/colin-after-thumb.jpg">
+            <source data-src="Client Results/Colin/colin-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="colin-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Colin/colin-before-thumb.jpg">
+            <source data-src="Client Results/Colin/colin-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">COLIN</div>
+      <div class="tvcard-desc">11-Month Handstand Push-Up Transformation — At 6’1”, progressed from pike push-ups to full 90-degree handstand push-ups—while gaining 15 lbs.</div>
+    </div>
+
+    <!-- JANAK -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="JANAK">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="janak-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Janak/janak-after-thumb.jpg">
+            <source data-src="Client Results/Janak/janak-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="janak-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Janak/janak-before-thumb.jpg">
+            <source data-src="Client Results/Janak/janak-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">JANAK</div>
+      <div class="tvcard-desc">6-Month Handstand Push-Up Transformation — From a single inconsistent rep to full 90-degree handstand push-ups.</div>
+    </div>
+
+    <!-- SAM -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="SAM">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="sam-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Sam/sam-after-thumb.jpg">
+            <source data-src="Client Results/Sam/sam-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="sam-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Sam/sam-before-thumb.jpg">
+            <source data-src="Client Results/Sam/sam-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">SAM</div>
+      <div class="tvcard-desc">3-Month Front Lever Transformation — From a weak tuck hold to a full front lever in under 3 months at 5’11”.</div>
+    </div>
+
+    <!-- REID -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="REID">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="reid-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Reid/reid-after-thumb.jpg">
+            <source data-src="Client Results/Reid/reid-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="reid-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Reid/reid-before-thumb.jpg">
+            <source data-src="Client Results/Reid/reid-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">REID</div>
+      <div class="tvcard-desc">2-Month Handstand Push-Up Transformation — From minimal balance to L-sit to handstand push-ups and 5 consecutive freestanding reps.</div>
+    </div>
+
+    <!-- JOSH -->
+    <div class="tvcard">
+      <div class="ba-slider results-mini-ba" data-name="JOSH">
+        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+        <div class="ba-after ba-video" id="josh2-mini-after">
+          <video muted playsinline preload="none" loop poster="Client Results/Josh2/josh2-after-thumb.jpg">
+            <source data-src="Client Results/Josh2/josh2-after.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="ba-before ba-video is-active" id="josh2-mini-before">
+          <video muted playsinline preload="none" loop poster="Client Results/Josh2/josh2-before-thumb.jpg">
+            <source data-src="Client Results/Josh2/josh2-before.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tvcard-name">JOSH</div>
+      <div class="tvcard-desc">4-Month Handstand Push-Up Transformation — From failing basic freestanding reps to controlled, dead-stop 90-degree handstand push-ups.</div>
+    </div>
+
+  </div>
+  <div class="tscroll-fade-left"></div>
+  <div class="tscroll-fade-right"></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 3B — CLIENT TESTIMONIALS (HORIZONTAL SCROLL)
+════════════════════════════════════════ -->
+<section style="border-bottom: 1px solid var(--border); overflow:hidden;">
+  <div class="section" style="padding-bottom:0;">
+    <div class="section-label reveal">TESTIMONIALS</div>
+    <h2 class="section-title reveal">HEAR IT IN<br>THEIR OWN WORDS.</h2>
+    <p class="section-subtitle reveal">
+      Hear directly from the athletes themselves as they share their experience applying the SubMax Method and working with Steven.
+    </p>
+
+    <div class="scroll-hint reveal">
+      <span class="scroll-hint-arrow">←</span>
+      <span class="scroll-hint-text">SWIPE TO VIEW</span>
+      <span class="scroll-hint-arrow">→</span>
+    </div>
+  </div>
+
+  <div class="tscroll-track">
+    <button class="tscroll-nav-btn tscroll-btn-prev" id="tscroll-prev" aria-label="Previous">&#8249;</button>
+    <button class="tscroll-nav-btn tscroll-btn-next" id="tscroll-next" aria-label="Next">&#8250;</button>
+
+    <div class="tscroll-inner">
+           <!-- 1. DARIAN -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/darian.jpg">
+            <source data-src="Testimonials/darian.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">DARIAN</div>
+      </div>
+            <!-- 1. KENTO -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/kento.jpg">
+            <source data-src="Testimonials/kento.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">KENTO</div>
+      </div>
+
+
+<!-- 2. Patrick -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/patrick.jpg">
+            <source data-src="Testimonials/patrick.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">PATRICK</div>
+      </div>
+
+      <!-- 2. JOSH -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/josh.jpg">
+            <source data-src="Testimonials/josh.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">JOSH</div>
+      </div>
+
+      <!-- 2. KEVIN -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/kevin.jpg">
+            <source data-src="Testimonials/kevin.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">KEVIN</div>
+      </div>
+
+      <!-- 3. STEVEN -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/steven.jpg">
+            <source data-src="Testimonials/steven.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">STEVEN</div>
+      </div>
+
+      <!-- 4. SAM -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/sam.jpg">
+            <source data-src="Testimonials/sam.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">SAM</div>
+      </div>
+
+      <!-- 5. TRISTAN -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/tristan.jpg">
+            <source data-src="Testimonials/tristan.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">TRISTAN</div>
+      </div>
+
+      <!-- 6. REID -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/reid.jpg">
+            <source data-src="Testimonials/reid.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">REID</div>
+      </div>
+
+      <!-- 7. GUS -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/gus.jpg">
+            <source data-src="Testimonials/gus.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">GUS</div>
+      </div>
+
+      <!-- 8. TORYN -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/toryn.jpg">
+            <source data-src="Testimonials/toryn.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">TORYN</div>
+      </div>
+
+      <!-- 9. JOHN -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/john.jpg">
+            <source data-src="Testimonials/john.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">JOHN</div>
+      </div>
+    </div>
+
+    <div class="tscroll-fade-left"></div>
+    <div class="tscroll-fade-right"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 4 — ABOUT ANTON (COACH BIO)
+════════════════════════════════════════ -->
+<section id="about-anton" class="about-section reveal"
+  style="
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('Images/anton.png');
+    background-size: cover; background-position: center top; background-attachment: fixed;
+    border-bottom: 1px solid var(--border); padding: 100px 60px; position: relative;
+  ">
+
+  <div style="position:absolute; inset:0; background: linear-gradient(135deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.75) 100%); pointer-events:none;"></div>
+
+  <div class="about-section-inner">
+
+    <!-- Centered header -->
+    <div class="coach-header reveal">
+      <div class="section-label">THE COACH</div>
+      <h2 class="section-title">MEET STEVEN.</h2>
+      <p class="section-subtitle">With over half a decade dedicated to mastering strength, Steven has spent years studying performance science and applying it in practice. Starting his journey at 250 lbs, he transformed himself into an advanced calisthenics athlete—developing a system that has demonstrated consistent, large-scale success across hundreds of individuals.</p>
+    </div>
+
+    <!-- Two-column: Stats left, Photo right -->
+    <div class="coach-hero reveal">
+      <div class="coach-details-col">
+        <div class="coach-stat-grid">
+          <div class="coach-stat"><div class="cs-num">5+</div><div class="cs-label">YEARS TRAINING</div></div>
+          <div class="coach-stat"><div class="cs-num">2+</div><div class="cs-label">YEARS FULL-TIME COACHING</div></div>
+          <div class="coach-stat"><div class="cs-num">6'2 FT</div><div class="cs-label">Over 6 Ft Tall</div></div>
+          <div class="coach-stat"><div class="cs-num">150+</div><div class="cs-label">ATHLETES TRANSFORMED</div></div>
+        </div>
+      </div>
+
+      <div class="coach-photo-col">
+        <div class="result-card">
+          <div class="ba-slider" data-name="STEVEN" style="aspect-ratio: 3/4;">
+            <button class="ba-toggle is-after" type="button">SEE BEFORE</button>
+            <div class="ba-after ba-video is-active">
+              <img src="Images/anton-after.jpg" alt="Steven — current physique" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="ba-before ba-video">
+              <img src="Images/anton-before.jpg" alt="Steven — starting point" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About cards -->
+    <section class="submax-intro-section" style="border:none; margin-top: 48px;">
+      <div class="submax-intro-wrap reveal">
+        <div class="submax-cards">
+          <div class="submax-card">
+            <div class="submax-card-title">Engineered Performance</div>
+            <p>Despite being 6'2" and 190 lbs, Steven has managed to learn advanced skills like the one arm handstand, one arm front lever, and full planche.</p>
+          </div>
+          <div class="submax-card">
+            <div class="submax-card-title">The System Behind the Strength</div>
+            <p>Founder of the SubMax System, a method that fuses calisthenics concepts with powerlifting principles. Built to remove guesswork and create a clear, structured path to strength.</p>
+          </div>
+          <div class="submax-card">
+            <div class="submax-card-title">Again, again, and again…</div>
+            <p>A full-time coach who has helped hundreds of people learn their dream skills, regardless of height, weight, or starting point. The system is designed to adapt to the individual.</p>
+          </div>
+          <div class="submax-card submax-card--highlight">
+            <div class="submax-card-title">Calisthenics Revolutionary</div>
+            <p>Dedicated his life to learning and mastering calisthenics, refining both the science and application of strength. Focused on changing how people approach training and what they believe is possible.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="coach-cta-wrap reveal">
+      <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="btn-primary">WORK WITH STEVEN</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CTA BANNER — DISCORD COMMUNITY
+════════════════════════════════════════ -->
+<div class="full-section">
+  <div class="cta-banner reveal">
+    <div class="cta-banner-bg"></div>
+
+    <!-- Discord icon -->
+    <div style="margin-bottom: 24px; position: relative; z-index: 1;">
+      <svg width="48" height="48" viewBox="0 0 127.14 96.36" fill="var(--accent)" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.8;">
+        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+      </svg>
+    </div>
+
+    <div class="cta-banner-title">JOIN THE COMMUNITY<br><span style="color:var(--accent)">3,000+ ACTIVE MEMBERS</span></div>
+    <p class="cta-banner-sub">
+      Join Steven's community of 3,000+ active members. A space to connect with like-minded athletes, get guidance, ask questions, and stay accountable while progressing toward your goals.
+    </p>
+
+    <!-- Community proof: stacked avatars + online indicator -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 32px; position: relative; z-index: 1; flex-wrap: wrap;">
+      <div style="display: flex; margin-right: 4px;">
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 5;">K</div>
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 4;">J</div>
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 3;">S</div>
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 2;">T</div>
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(209,84,26,0.15); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--accent); z-index: 1; letter-spacing: 0;">+3K</div>
+      </div>
+      <span style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted);">ONLINE NOW</span>
+      <span style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; display: inline-block; animation: pulse 2s infinite;"></span>
+    </div>
+
+    <a href="https://discord.com/invite/FUG5sAwDbW" target="_blank" rel="noopener" class="btn-primary">JOIN THE DISCORD →</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SKILLS SHOWCASE — PHOTO GRID
+════════════════════════════════════════ -->
+<div class="skills-showcase">
+  <div class="skills-showcase-grid">
+    <div class="skills-showcase-item">
+      <img src="Images/skill4.JPG" alt="One arm handstand" loading="lazy" decoding="async">
+      <span class="skills-showcase-label">ONE ARM HANDSTAND</span>
+    </div>
+    <div class="skills-showcase-item">
+      <img src="Images/skill3.JPG" alt="Front lever" loading="lazy" decoding="async">
+      <span class="skills-showcase-label">FRONT LEVER</span>
+    </div>
+    <div class="skills-showcase-item">
+      <img src="Images/skill1.jpg" alt="Advanced calisthenics skill" loading="lazy" decoding="async">
+      <span class="skills-showcase-label">XXX</span>
+    </div>
+    <div class="skills-showcase-item wide">
+      <img src="Images/skill2.JPG" alt="Planche" loading="lazy" style="object-position: center center;">
+      <span class="skills-showcase-label">PLANCHE</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SUBMAX PHILOSOPHY SECTION
+════════════════════════════════════════ -->
+<section class="philosophy-section">
+  <div class="philosophy-inner">
+
+    <div class="philosophy-header reveal">
+      <div class="section-label">THE METHOD</div>
+      <h2 class="philosophy-title">THE PHILOSOPHY<br>BEHIND SUBMAX</h2>
+      <p class="philosophy-subtitle">
+        A system that integrates calisthenics skill development with proven powerlifting principles—creating a structured, honest approach to strength acquisition.
+      </p>
+    </div>
+
+    <div class="philosophy-flow reveal">
+      <div class="philosophy-step">
+        <div class="philosophy-step-title">WHERE 99% FAIL</div>
+        <p class="philosophy-step-text">Most athletes spend months—often years—approaching calisthenics with a "more is better" mentality. More sets, more intensity, more fatigue. This mindset, rooted in "no pain, no gain," often leads not to progress, but to stagnation—plateaus, chronic fatigue, and preventable injury.</p>
+      </div>
+
+      <div class="philosophy-step">
+        <div class="philosophy-step-title">THE TRUTH</div>
+        <p class="philosophy-step-text">Strength is not built through excess, but through precision. It is a delicate process governed by the calculated balance of volume, frequency, and intensity. By training submaximally—intelligently managing fatigue, coordination, and output—we create the conditions for consistent, sustainable adaptation through undulating progression.</p>
+      </div>
+
+      <div class="philosophy-step">
+        <div class="philosophy-step-title">THE SOLUTION</div>
+        <p class="philosophy-step-text">After over six years of studying strength science, followed by years of real-world application across hundreds of athletes, Steven developed the SubMax system. A framework that integrates proven powerlifting principles with the unique demands of calisthenics skill acquisition.</p>
+      </div>
+
+      <div class="philosophy-step philosophy-step--highlight">
+        <div class="philosophy-step-title">THE RESULT</div>
+        <p class="philosophy-step-text">The result is a unified, adaptable system—engineered to build strength and mastery in complex calisthenics movements. A methodology that evolves with the individual, aligning with their structure, capacity, and goals—delivering results regardless of starting point.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     PRE-APPLY — CINEMATIC STRIP
+════════════════════════════════════════ -->
+<div class="pre-apply-strip">
+  <div class="pre-apply-strip-item">
+    <img src="Images/pic2.jpg" alt="Steven physique" loading="lazy" decoding="async">
+  </div>
+  <div class="pre-apply-strip-item">
+    <img src="Images/pic1.jpg" alt="Handstand push-up" loading="lazy" decoding="async">
+  </div>
+  <div class="pre-apply-strip-item">
+    <img src="Images/pic3.JPG" alt="Gym training" loading="lazy" decoding="async">
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     APPLICATION FORM
+════════════════════════════════════════ -->
+<section id="apply">
+  <div class="section">
+    <div class="section-label reveal">APPLICATION</div>
+    <h2 class="section-title reveal">APPLY TO WORK<br>WITH ANTON.</h2>
+    <p class="section-subtitle reveal">
+      This is not a standard sign-up form. Only apply if you are serious about calisthenics and committed to breaking past your current limitations. Every application is reviewed personally by Steven and his team. If selected, you will be contacted within 48 hours with next steps.
+    </p>
+
+    <div class="btn-wrapper">
+      <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" class="glitch-btn" data-text="Apply Now">Apply Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer>
+  <span class="footer-brand">STEVETHNX</span>
+  <div class="footer-meta">
+    <span>SUBMAX COACHING SYSTEM</span>
+    <span>·</span>
+    <span>© 2026 ALL RIGHTS RESERVED</span>
+  </div>
+  <a href="#hero" class="footer-back-top">BACK TO TOP ↑</a>
+</footer>
+
+<div class="footer-sub">
+  <div class="footer-sub-inner">
+    <div class="footer-contact">
+      <div class="footer-sub-label">CONTACT</div>
+      <a href="https://www.instagram.com/stevenn.sw/" target="_blank" rel="noopener" class="footer-link">
+        <span class="footer-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </span>
+        @stevenn.sw
+      </a>
+      <a href="https://youtube.com/@Stevethnx" target="_blank" rel="noopener" class="footer-link">
+        <span class="footer-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </span>
+        @Stevethnx
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SCRIPTS (Consolidated)
+════════════════════════════════════════ -->
+<script>
+// ═══════════════════════════════════════
+// CUSTOM CURSOR
+// ═══════════════════════════════════════
+(function() {
+  var cursor = document.getElementById('cursor');
+  var isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  if (!isTouch && cursor) {
+    document.addEventListener('mousemove', function(e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+
+    function addHover(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.addEventListener('mouseenter', function() { cursor.classList.add('hovering'); });
+        el.addEventListener('mouseleave', function() { cursor.classList.remove('hovering'); });
+      });
+    }
+    addHover('a, button, .radio-opt, .skill-badge, input, textarea, select, .tcard, .system-card');
+  }
+})();
+
+// ═══════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════
+(function() {
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
+})();
+
+// ═══════════════════════════════════════
+// NAV SCROLL EFFECT
+// ═══════════════════════════════════════
+(function() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  function onScroll() {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+// ═══════════════════════════════════════
+// RADIO BUTTONS
+// ═══════════════════════════════════════
+document.querySelectorAll('.radio-group').forEach(function(group) {
+  group.querySelectorAll('.radio-opt').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      group.querySelectorAll('.radio-opt').forEach(function(o) { o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      var hiddenId = group.nextElementSibling?.id;
+      if (hiddenId) document.getElementById(hiddenId).value = opt.dataset.val;
+    });
+  });
+});
+
+// ═══════════════════════════════════════
+// SERIOUSNESS SLIDER
+// ═══════════════════════════════════════
+(function() {
+  var slider = document.getElementById('serious-slider');
+  var sVal = document.getElementById('serious-val');
+  function updateSerious() { if (sVal && slider) sVal.textContent = slider.value; }
+  if (slider) {
+    slider.addEventListener('input', updateSerious);
+    updateSerious();
+    slider.addEventListener('touchstart', function() { isDown = true; }, { passive: true });
+    window.addEventListener('touchend', function() { isDown = false; });
+    window.addEventListener('touchmove', function(e) { if (isDown) move(e.touches[0].clientX); }, { passive: true });
+  }
+})();
+
+// ═══════════════════════════════════════
+// SMOOTH SCROLL FOR ANCHOR LINKS
+// ═══════════════════════════════════════
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// ═══════════════════════════════════════
+// TESTIMONIAL VIDEO PLAY/PAUSE
+// ═══════════════════════════════════════
+(function() {
+  var testimonialPlayers = new Map();
+
+  function primeScrollerVideo(video) {
+    if (!video) return;
+    // Don't touch BA slider videos — their loop is managed by initBASlider
+    if (video.closest('.ba-slider')) return;
+    video.autoplay = false;
+    video.loop = false;
+    video.pause();
+    video.currentTime = 0;
+    video.playsInline = true;
+    video.muted = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('preload', 'none');
+    video.removeAttribute('autoplay');
+    video.removeAttribute('loop');
+  }
+
+  // Make primeScrollerVideo globally accessible for auto-scroll duplication
+  window.primeScrollerVideo = primeScrollerVideo;
+
+  document.querySelectorAll('.tscroll-track video').forEach(primeScrollerVideo);
+
+  function syncTestimonialUi(card) {
+    if (!card) return;
+    var video = card.querySelector('.tvcard-video');
+    var playOverlay = card.querySelector('.tcard-play-overlay');
+    var playBtn = card.querySelector('.tvcard-play-btn');
+    var playing = !video.paused && !video.ended;
+
+    // Handle overlay-style play button
+    if (playOverlay) {
+      if (playing) {
+        playOverlay.classList.add('is-hidden');
+      } else {
+        playOverlay.classList.remove('is-hidden');
+      }
+    }
+
+    // Handle legacy button-style (if present)
+    if (playBtn) {
+      var icon = playBtn.querySelector('.tvcard-play-icon');
+      var label = playBtn.querySelector('.tvcard-play-label');
+      playBtn.setAttribute('aria-pressed', String(playing));
+      playBtn.setAttribute('aria-label', playing ? 'Pause testimonial video' : 'Play testimonial video');
+      playBtn.classList.toggle('is-playing', playing);
+      if (icon) icon.textContent = playing ? '❚❚' : '▶';
+      if (label) label.textContent = playing ? 'Pause' : 'Play';
+    }
+  }
+
+  function pauseOtherTestimonials(activeVideo) {
+    testimonialPlayers.forEach(function(card, video) {
+      if (video === activeVideo) return;
+      video.pause();
+      video.currentTime = 0;
+      video.removeAttribute('data-has-frames');
+      syncTestimonialUi(card);
+    });
+  }
+
+  function registerTestimonialCard(card) {
+    if (!card || card.dataset.videoReady === 'true') return;
+
+    var video = card.querySelector('.tvcard-video');
+    var playOverlay = card.querySelector('.tcard-play-overlay');
+    var playBtn = card.querySelector('.tvcard-play-btn');
+    // Support both overlay (new) and button (legacy)
+    var control = playOverlay || playBtn;
+    if (!video || !control) return;
+
+    function toggleVideoPlayback() {
+      var playing = !video.paused && !video.ended;
+      pauseOtherTestimonials(video);
+
+      if (playing) {
+        video.pause();
+        video.removeAttribute('data-has-frames');
+        syncTestimonialUi(card);
+        return;
+      }
+
+      // Ensure lazy-loaded sources are injected before playing
+      if (typeof window.activateVideo === 'function') window.activateVideo(video);
+      video.currentTime = 0;
+
+      // Start muted first — mobile browsers always allow muted autoplay.
+      // This guarantees a single tap works every time.
+      video.muted = true;
+
+      // Mark frames ready once the video actually has pixels to show
+      function onFrameReady() {
+        video.setAttribute('data-has-frames', '');
+        // Now try to unmute for sound
+        video.muted = false;
+        syncTestimonialUi(card);
+      }
+
+      // If video already has enough data, mark frames immediately
+      if (video.readyState >= 3) {
+        video.setAttribute('data-has-frames', '');
+      } else {
+        video.addEventListener('playing', function() {
+          // Small delay to ensure first frame is painted
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              onFrameReady();
+            });
+          });
+        }, { once: true });
+      }
+
+      var playPromise = video.play();
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise.then(function() {
+          // Play succeeded — try unmuting
+          if (video.readyState >= 3) {
+            video.setAttribute('data-has-frames', '');
+          }
+          video.muted = false;
+          syncTestimonialUi(card);
+        }).catch(function() {
+          // Shouldn't happen since we start muted, but just in case
+          video.muted = true;
+          video.play().then(function() {
+            video.setAttribute('data-has-frames', '');
+            syncTestimonialUi(card);
+          }).catch(function() {
+            syncTestimonialUi(card);
+          });
+        });
+        return;
+      }
+
+      // Fallback for browsers that don't return a promise
+      video.setAttribute('data-has-frames', '');
+      video.muted = false;
+      syncTestimonialUi(card);
+    }
+
+    card.dataset.videoReady = 'true';
+    video.controls = false;
+    video.autoplay = false;
+    // Don't override loop on BA slider videos
+    if (!video.closest('.ba-slider')) video.loop = false;
+    video.muted = true;
+    video.pause();
+    video.currentTime = 0;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('preload', 'none');
+    video.removeAttribute('autoplay');
+    video.removeAttribute('muted');
+
+    testimonialPlayers.set(video, card);
+
+    control.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleVideoPlayback();
+    });
+
+    video.addEventListener('click', function() { toggleVideoPlayback(); });
+
+    ['play', 'pause', 'ended'].forEach(function(eventName) {
+      video.addEventListener(eventName, function() { syncTestimonialUi(card); });
+    });
+
+    syncTestimonialUi(card);
+  }
+
+  // Make registerTestimonialCard globally accessible for auto-scroll duplication
+  window.registerTestimonialCard = registerTestimonialCard;
+
+  document.querySelectorAll('.tvcard').forEach(registerTestimonialCard);
+  // Set poster as background on video wraps to prevent black flash
+  document.querySelectorAll('.tvcard-video-wrap').forEach(function(wrap) {
+    var video = wrap.querySelector('video[poster]');
+    if (video && video.poster) {
+      wrap.setAttribute('data-poster', '');
+      wrap.style.backgroundImage = 'url(' + video.poster + ')';
+    }
+  });
+
+
+  // Capture first frame as poster
+  function captureFirstFrame(video) {
+    if (!video || video.dataset.posterCaptured === 'true') return;
+    function doCapture() {
+      if (video.readyState < 2) return;
+      try {
+        var canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 360;
+        canvas.height = video.videoHeight || 640;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        if (dataUrl && dataUrl !== 'data:,') {
+          video.poster = dataUrl;
+          video.dataset.posterCaptured = 'true';
+        }
+      } catch(e) {}
+    }
+    if (video.readyState >= 2) {
+      doCapture();
+    } else {
+      video.addEventListener('loadeddata', doCapture, { once: true });
+      video.addEventListener('canplay', doCapture, { once: true });
+    }
+  }
+
+  document.querySelectorAll('.tscroll-track .tvcard-video').forEach(captureFirstFrame);
+  document.querySelectorAll('.results-grid .ba-video video').forEach(captureFirstFrame);
+})();
+
+// ═══════════════════════════════════════
+// LAZY LOADING — IFRAMES (YouTube + Vimeo)
+// ═══════════════════════════════════════
+// Iframes use data-src instead of src. We inject src when they
+// scroll into view, preventing 10+ heavy player boots on page load.
+(function() {
+  function activateIframe(iframe) {
+    if (!iframe || iframe.dataset.lazyActivated === 'true') return;
+    if (!iframe.dataset.src) return;
+    iframe.src = iframe.dataset.src;
+    iframe.dataset.lazyActivated = 'true';
+  }
+
+  // Expose globally for the auto-scroll duplicator
+  window.activateIframe = activateIframe;
+
+  // For iframes inside horizontal scroll containers, observe the
+  // scroll track wrapper and activate all iframes inside when visible.
+  // For standalone iframes (like YouTube), observe them directly.
+  var targets = [];
+  var handledTracks = [];
+
+  document.querySelectorAll('iframe[data-src]').forEach(function(iframe) {
+    var track = iframe.closest('.tscroll-track');
+    if (track) {
+      if (handledTracks.indexOf(track) === -1) {
+        handledTracks.push(track);
+        targets.push(track);
+      }
+    } else {
+      targets.push(iframe);
+    }
+  });
+
+  if (!targets.length) return;
+
+  var iframeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      // If it's a scroll track, activate all iframes inside
+      var iframes = el.querySelectorAll ? el.querySelectorAll('iframe[data-src]') : [];
+      if (iframes.length) {
+        iframes.forEach(activateIframe);
+      } else if (el.tagName === 'IFRAME') {
+        activateIframe(el);
+      }
+      iframeObserver.unobserve(el);
+    });
+  }, { rootMargin: '400px 0px' });
+
+  targets.forEach(function(el) { iframeObserver.observe(el); });
+})();
+
+// ═══════════════════════════════════════
+// LAZY LOADING — VIDEO SOURCES
+// ═══════════════════════════════════════
+// Video <source> tags use data-src. We inject the real src when the
+// video's container scrolls near the viewport, then call load().
+// This prevents the browser from prefetching 26+ mp4 files on page load.
+(function() {
+  var lazyVideos = document.querySelectorAll('video');
+  if (!lazyVideos.length) return;
+
+  function activateVideo(video) {
+    if (video.dataset.lazyLoaded === 'true') return;
+    var sources = video.querySelectorAll('source[data-src]');
+    if (!sources.length) return;
+    sources.forEach(function(source) {
+      source.src = source.dataset.src;
+      source.removeAttribute('data-src');
+    });
+    video.dataset.lazyLoaded = 'true';
+    // Switch to auto preload so mobile browsers actually buffer
+    video.setAttribute('preload', 'auto');
+    video.load();
+  }
+
+  // Expose globally so BA slider and testimonial code can call it
+  window.activateVideo = activateVideo;
+
+  var videoObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      activateVideo(entry.target);
+      videoObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '400px 0px' }); // start loading 400px before visible
+
+  lazyVideos.forEach(function(video) { videoObserver.observe(video); });
+})();
+
+// ═══════════════════════════════════════
+// APPLY NOW AURA (Nav CTA button glow) — desktop only
+// ═══════════════════════════════════════
+(function() {
+  // Skip on mobile — saves significant CPU
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  var btn = document.querySelector('.nav-cta');
+  var canvas = document.getElementById('aura-canvas');
+  if (!btn || !canvas) return;
+  var ctx = canvas.getContext('2d');
+  var active = false;
+  var auraAlpha = 0;
+  var particles = [];
+
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function Particle(cx, cy) {
+    var angle = Math.random() * Math.PI * 2;
+    var dist = 20 + Math.random() * 45;
+    this.x = cx + Math.cos(angle) * dist;
+    this.y = cy + Math.sin(angle) * dist;
+    this.vx = Math.cos(angle) * (0.1 + Math.random() * 0.3) + (Math.random() - 0.5) * 0.1;
+    this.vy = Math.sin(angle) * (0.1 + Math.random() * 0.3) + (Math.random() - 0.5) * 0.1;
+    this.size = 0.8 + Math.random() * 0.8;
+    this.life = 0;
+    this.maxLife = 60 + Math.floor(Math.random() * 60);
+    this.alpha = 1.0;
+    this.colorOuter = 'rgba(' + Math.round(209 + Math.random()*46) + ',' + Math.round(84 + Math.random()*72) + ',26,';
+    this.colorMid = 'rgba(255,180,60,';
+    this.colorCore = 'rgba(255,240,200,';
+  }
+
+  Particle.prototype.update = function() { this.life++; this.x += this.vx; this.y += this.vy; this.vx *= 0.985; this.vy *= 0.985; this.vx += (Math.random() - 0.5) * 0.02; this.vy += (Math.random() - 0.5) * 0.02; };
+
+  Particle.prototype.draw = function() {
+    var t = this.life / this.maxLife;
+    var a = (1 - t) * auraAlpha;
+    if (a < 0.02) return;
+    var glow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2.2);
+    glow.addColorStop(0, this.colorMid + (a * 0.7) + ')');
+    glow.addColorStop(0.5, this.colorOuter + (a * 0.3) + ')');
+    glow.addColorStop(1, 'rgba(209,84,26,0)');
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = glow; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.colorMid + a + ')'; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 0.45, 0, Math.PI * 2);
+    ctx.fillStyle = this.colorCore + (a * 0.9) + ')'; ctx.fill();
+  };
+
+  Particle.prototype.dead = function() { return this.life >= this.maxLife; };
+
+  function BurstParticle(cx, cy) {
+    var angle = Math.random() * Math.PI * 2;
+    var spd = 4 + Math.random() * 8;
+    this.x = cx + (Math.random()-0.5)*10; this.y = cy + (Math.random()-0.5)*10;
+    this.vx = Math.cos(angle)*spd; this.vy = Math.sin(angle)*spd;
+    this.size = 1.5 + Math.random()*2.5; this.life = 0;
+    this.maxLife = 35 + Math.floor(Math.random()*25);
+  }
+  BurstParticle.prototype.update = function() { this.life++; this.x+=this.vx; this.y+=this.vy; this.vx*=0.90; this.vy*=0.90; };
+  BurstParticle.prototype.draw = function() {
+    var t=this.life/this.maxLife, a=(1-t);
+    if(a<0.02) return;
+    var gr=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*3);
+    gr.addColorStop(0,'rgba(255,180,60,'+(a*0.6)+')');
+    gr.addColorStop(0.5,'rgba(209,84,26,'+(a*0.3)+')');
+    gr.addColorStop(1,'rgba(209,84,26,0)');
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*3,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle='rgba(255,220,140,'+a+')'; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*0.4,0,Math.PI*2); ctx.fillStyle='rgba(255,255,230,'+(a*0.95)+')'; ctx.fill();
+  };
+  BurstParticle.prototype.dead = function() { return this.life >= this.maxLife; };
+  var burstParticles = [];
+
+  var spawnTimer = 0;
+  function spawnParticles(cx, cy) { for (var i = 0; i < 2; i++) particles.push(new Particle(cx, cy)); }
+
+  function getButtonCenter() { var r = btn.getBoundingClientRect(); return { x: r.left + r.width/2, y: r.top + r.height/2, w: r.width, h: r.height }; }
+
+  function drawAura(cx, cy, w, h) {
+    if (auraAlpha <= 0) return;
+    var offsets = [
+      { dx: -3, dy: -2, rx: w*0.7, ry: h*1.2 },
+      { dx:  4, dy:  3, rx: w*0.65,ry: h*1.1 },
+      { dx: -2, dy:  4, rx: w*0.72,ry: h*1.3 },
+      { dx:  3, dy: -3, rx: w*0.68,ry: h*1.15},
+    ];
+    offsets.forEach(function(o) {
+      var gx=cx+o.dx, gy=cy+o.dy, r=Math.max(o.rx,o.ry);
+      var grad=ctx.createRadialGradient(gx,gy,0,gx,gy,r);
+      grad.addColorStop(0,'rgba(30,30,30,'+(auraAlpha*0.55)+')');
+      grad.addColorStop(0.35,'rgba(18,18,18,'+(auraAlpha*0.4)+')');
+      grad.addColorStop(0.65,'rgba(10,10,10,'+(auraAlpha*0.2)+')');
+      grad.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.save(); ctx.translate(gx,gy); ctx.scale(o.rx/r,o.ry/r);
+      ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2);
+      ctx.fillStyle=grad; ctx.fill(); ctx.restore();
+    });
+  }
+
+  function loop() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    var bc=getButtonCenter();
+    if (active) auraAlpha=Math.min(1,auraAlpha+0.06);
+    else auraAlpha=Math.max(0,auraAlpha-0.05);
+    if (auraAlpha>0) {
+      drawAura(bc.x,bc.y,bc.w,bc.h);
+      if (active) { spawnTimer++; if(spawnTimer>=3){spawnParticles(bc.x,bc.y);spawnParticles(bc.x,bc.y);spawnTimer=0;} }
+      particles=particles.filter(function(p){return !p.dead();});
+      particles.forEach(function(p){p.update();p.draw();});
+    }
+    burstParticles=burstParticles.filter(function(p){return !p.dead();});
+    burstParticles.forEach(function(p){p.update();p.draw();});
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  function fireBurst() { var bc=getButtonCenter(); for(var i=0;i<50;i++) burstParticles.push(new BurstParticle(bc.x,bc.y)); }
+
+  btn.addEventListener('mouseenter', function(){active=true;});
+  btn.addEventListener('mouseleave', function(){active=false;btn.classList.remove('aura-active');});
+  btn.addEventListener('click', function(){fireBurst();});
+  btn.addEventListener('touchstart', function(){active=true;btn.classList.add('aura-active');},{passive:true});
+  btn.addEventListener('touchend', function(){fireBurst();setTimeout(function(){active=false;btn.classList.remove('aura-active');},400);});
+  btn.addEventListener('touchcancel', function(){active=false;btn.classList.remove('aura-active');});
+  document.addEventListener('click', function(e){if(e.target!==btn){active=false;btn.classList.remove('aura-active');}});
+})();
+
+// ═══════════════════════════════════════
+// AMBIENT FIRE PARTICLES — desktop only
+// ═══════════════════════════════════════
+(function() {
+  // Skip on mobile — saves significant CPU/battery
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  var canvas = document.getElementById('fire-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+
+  function hexToRgb(hex) {
+    var r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+    return r+','+g+','+b;
+  }
+
+  function resize() { canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var trainingRect=null;
+  function updateTrainingRect() {
+    var el=document.querySelector('.hero-training-wrap');
+    if(el) trainingRect=el.getBoundingClientRect();
+  }
+  updateTrainingRect();
+  window.addEventListener('resize', updateTrainingRect);
+  setTimeout(updateTrainingRect, 500);
+
+  var NUM=10, particles=[];
+  function FireParticle(forceNear) {
+    this.forceNearTraining=forceNear||false;
+    this.reset();
+  }
+  FireParticle.prototype.reset=function() {
+    if(this.forceNearTraining&&trainingRect){
+      var pad=2;
+      this.x=trainingRect.left-pad+Math.random()*(trainingRect.width+pad*2);
+      this.y=trainingRect.top-pad+Math.random()*(trainingRect.height+pad*2);
+      var angle=-Math.PI*0.5+(Math.random()-0.5)*Math.PI*0.9;
+      var spd=0.96+Math.random()*1.6;
+      this.vx=Math.cos(angle)*spd; this.vy=Math.sin(angle)*spd;
+    } else {
+      this.x=Math.random()*canvas.width;
+      this.y=canvas.height*0.2+Math.random()*canvas.height*0.75;
+      this.vy=-(0.24+Math.random()*0.4); this.vx=(Math.random()-0.5)*0.24;
+    }
+    this.startY=this.y;
+    this.sizzleTimer=0; this.sizzleInterval=8+Math.floor(Math.random()*12);
+    this.size=0.8+Math.random()*0.7;
+    var palette=[
+      {core:'#e8320a',glow:'#ff6b2b'},{core:'#e84e0a',glow:'#ff7a2a'},
+      {core:'#d1541a',glow:'#ff9c19'},{core:'#c44010',glow:'#ff8c00'},
+      {core:'#e06010',glow:'#ffaa00'},
+    ];
+    var pick=palette[Math.floor(Math.random()*palette.length)];
+    this.coreColor=pick.core; this.glowColor=pick.glow;
+    this.life=0;
+    if(Math.random()<0.7) this.life=Math.floor(Math.random()*60);
+  };
+  FireParticle.prototype.update=function() {
+    this.life++; this.y+=this.vy; this.x+=this.vx;
+    this.sizzleTimer++;
+    if(this.sizzleTimer>=this.sizzleInterval){
+      this.vx+=(Math.random()-0.5)*1.44;
+      this.vx=Math.max(-0.96,Math.min(0.96,this.vx));
+      this.sizzleTimer=0; this.sizzleInterval=8+Math.floor(Math.random()*12);
+    }
+    this.vx*=0.96;
+    var risen=this.startY-this.y;
+    if(risen>=80||this.x<-10||this.x>canvas.width+10) this.reset();
+  };
+  FireParticle.prototype.alpha=function() {
+    var risen=this.startY-this.y;
+    if(risen<=30) return 0.9;
+    return 0.9*(1-(risen-30)/50);
+  };
+  FireParticle.prototype.draw=function() {
+    var a=this.alpha(); if(a<0.01) return;
+    var gr=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*5);
+    gr.addColorStop(0,'rgba('+hexToRgb(this.glowColor)+','+(a*0.65)+')');
+    gr.addColorStop(0.5,'rgba('+hexToRgb(this.coreColor)+','+(a*0.28)+')');
+    gr.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*5,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*1.3,0,Math.PI*2);
+    ctx.fillStyle='rgba('+hexToRgb(this.coreColor)+','+a+')'; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*0.5,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,240,200,'+(a*0.85)+')'; ctx.fill();
+  };
+  for(var i=0;i<NUM;i++) particles.push(new FireParticle(false));
+  for(var i=0;i<2;i++) particles.push(new FireParticle(true));
+  function loop() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ═══════════════════════════════════════
+// FORM SUBMISSION
+// ═══════════════════════════════════════
+(function() {
+  var form = document.getElementById('apply-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('apply-btn');
+    btn.textContent = 'SENDING...';
+    btn.disabled = true;
+    var data = Object.fromEntries(new FormData(form).entries());
+    data.seriousness = document.getElementById('serious-slider')?.value || 5;
+    var payload = {
+      answers: [
+        { field: { ref: 'name' }, type: 'text', text: data.name },
+        { field: { ref: 'email' }, type: 'email', email: data.email },
+        { field: { ref: 'age' }, type: 'number', number: +data.age },
+        { field: { ref: 'occupation' }, type: 'text', text: data.occupation },
+        { field: { ref: 'employment' }, type: 'choice', choice: { label: data.employment } },
+        { field: { ref: 'why' }, type: 'text', text: data.why },
+        { field: { ref: 'skills' }, type: 'text', text: data.skills },
+        { field: { ref: 'physique' }, type: 'text', text: data.physique },
+        { field: { ref: 'seriousness' }, type: 'number', number: +data.seriousness },
+        { field: { ref: 'commitment' }, type: 'choice', choice: { label: data.commitment } },
+      ]
+    };
+    try {
+      var res = await fetch('(https://STEVETHNX.com/api/typeform/submit?formId=IeHZ2FIw)', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        showFeedback('✓ APPLICATION RECEIVED — ANTON WILL BE IN TOUCH WITHIN 48 HOURS.', true);
+        form.reset();
+        document.querySelectorAll('.radio-opt').forEach(function(o) { o.classList.remove('selected'); });
+      } else { throw new Error('Submission failed'); }
+    } catch (err) {
+      showFeedback('Something went wrong. Please email directly: ', false);
+      console.error(err);
+    } finally {
+      btn.textContent = 'SUBMIT APPLICATION →';
+      btn.disabled = false;
+    }
+  });
+
+  function showFeedback(msg, success) {
+    var fb = document.getElementById('form-feedback');
+    if (!fb) return;
+    fb.textContent = msg;
+    fb.style.color = success ? 'var(--accent)' : 'var(--accent)';
+    fb.style.display = 'block';
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+})();
+
+// ═══════════════════════════════════════
+// HORIZONTAL SCROLL NAV BUTTONS
+// ═══════════════════════════════════════
+(function() {
+  document.querySelectorAll('.tscroll-track').forEach(function(track) {
+    var inner = track.querySelector('.tscroll-inner');
+    var prevBtn = track.querySelector('.tscroll-btn-prev');
+    var nextBtn = track.querySelector('.tscroll-btn-next');
+    if (!inner || !prevBtn || !nextBtn) return;
+
+    function getScrollStep() {
+      var firstCard = inner.querySelector('.tvcard');
+      if (!firstCard) return Math.max(inner.clientWidth * 0.85, 220);
+      var styles = window.getComputedStyle(inner);
+      var gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      return firstCard.getBoundingClientRect().width + gap;
+    }
+
+    prevBtn.addEventListener('click', function(e) { e.preventDefault(); inner.scrollBy({ left: -getScrollStep(), behavior: 'smooth' }); });
+    nextBtn.addEventListener('click', function(e) { e.preventDefault(); inner.scrollBy({ left: getScrollStep(), behavior: 'smooth' }); });
+
+    function updateButtons() {
+      var isLoopingTrack = inner.dataset.loopReady === 'true';
+      if (isLoopingTrack) { prevBtn.style.opacity = '1'; nextBtn.style.opacity = '1'; return; }
+      prevBtn.style.opacity = inner.scrollLeft <= 0 ? '0.35' : '1';
+      nextBtn.style.opacity = inner.scrollLeft + inner.clientWidth >= inner.scrollWidth - 10 ? '0.35' : '1';
+    }
+
+    inner.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  });
+})();
+
+// ═══════════════════════════════════════
+// "AND HUNDREDS MORE" SCROLL ARROWS
+// ═══════════════════════════════════════
+(function() {
+  var prevArrow = document.getElementById('results-arrow-prev');
+  var nextArrow = document.getElementById('results-arrow-next');
+  var track = document.querySelector('.results-video-scroll .tscroll-inner');
+  if (!prevArrow || !nextArrow || !track) return;
+
+  function getStep() {
+    var card = track.querySelector('.tvcard');
+    if (!card) return 280;
+    var styles = window.getComputedStyle(track);
+    var gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  prevArrow.addEventListener('click', function() {
+    track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+  });
+  nextArrow.addEventListener('click', function() {
+    track.scrollBy({ left: getStep(), behavior: 'smooth' });
+  });
+})();
+
+// ═══════════════════════════════════════
+// VERTICAL PAGE PROGRESS SLIDER
+// ═══════════════════════════════════════
+(function() {
+  var track = document.getElementById('page-progress-track');
+  var fill = document.getElementById('page-progress-fill');
+  var thumb = document.getElementById('page-progress-thumb');
+  if (!track || !fill || !thumb) return;
+  var dragging = false;
+
+  function getScroll() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    return maxScroll > 0 ? scrollTop / maxScroll : 0;
+  }
+
+  function updateUI() {
+    var pct = getScroll();
+    var trackH = track.offsetHeight;
+    var fillH = Math.round(pct * trackH);
+    fill.style.height = fillH + 'px';
+    thumb.style.top = fillH + 'px';
+  }
+
+  function scrollToPercent(pct) {
+    pct = Math.max(0, Math.min(1, pct));
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: pct * maxScroll, behavior: 'smooth' });
+  }
+
+  function getPctFromEvent(e) {
+    var rect = track.getBoundingClientRect();
+    var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return (clientY - rect.top) / rect.height;
+  }
+
+  window.addEventListener('scroll', updateUI);
+  window.addEventListener('resize', updateUI);
+  updateUI();
+
+  track.addEventListener('click', function(e) { if (!dragging) scrollToPercent(getPctFromEvent(e)); });
+  thumb.addEventListener('mousedown', function(e) { dragging = true; e.preventDefault(); });
+  window.addEventListener('mousemove', function(e) { if (!dragging) return; scrollToPercent(getPctFromEvent(e)); updateUI(); });
+  window.addEventListener('mouseup', function() { dragging = false; });
+  thumb.addEventListener('touchstart', function() { dragging = true; }, { passive: true });
+  window.addEventListener('touchmove', function(e) { if (!dragging) return; scrollToPercent(getPctFromEvent(e)); updateUI(); }, { passive: true });
+  window.addEventListener('touchend', function() { dragging = false; });
+})();
+
+// ═══════════════════════════════════════
+// BEFORE/AFTER SLIDER TOGGLE (videos AND images)
+// ═══════════════════════════════════════
+
+// Global: pause all BA slider videos and restore their play overlays
+function pauseAllSliders(exceptSlider) {
+  document.querySelectorAll('.ba-slider').forEach(function(s) {
+    if (s === exceptSlider) return;
+    s.querySelectorAll('video').forEach(function(v) { v.pause(); });
+    var overlay = s.querySelector('.ba-play-overlay');
+    if (overlay) overlay.classList.remove('is-hidden');
+  });
+}
+
+function initBASlider(slider) {
+  // Guard against double-init
+  if (slider.dataset.baInit === 'true') return;
+  slider.dataset.baInit = 'true';
+
+  var beforeWrap = slider.querySelector('.ba-before');
+  var afterWrap = slider.querySelector('.ba-after');
+  var toggle = slider.querySelector('.ba-toggle');
+
+  if (!beforeWrap || !afterWrap || !toggle) return;
+
+  var beforeVideo = beforeWrap.querySelector('video');
+  var afterVideo = afterWrap.querySelector('video');
+  var isVideoSlider = !!(beforeVideo && afterVideo);
+
+  // Inject play button overlay for video sliders
+  var playOverlay = slider.querySelector('.ba-play-overlay');
+  if (isVideoSlider && !playOverlay) {
+    playOverlay = document.createElement('div');
+    playOverlay.className = 'ba-play-overlay';
+    playOverlay.innerHTML = '<div class="ba-play-circle"><div class="ba-play-icon"></div></div>';
+    slider.appendChild(playOverlay);
+  }
+
+  slider.style.position = 'relative';
+  slider.style.overflow = 'hidden';
+
+  [beforeWrap, afterWrap].forEach(function(wrap) {
+    wrap.style.position = 'absolute';
+    wrap.style.inset = '0';
+    wrap.style.width = '100%';
+    wrap.style.height = '100%';
+    wrap.style.transition = 'opacity 0.3s ease';
+  });
+
+  function safePlay(video) {
+    if (!video) return;
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+    video.setAttribute('loop', '');
+
+    // Activate lazy sources if needed
+    if (typeof window.activateVideo === 'function') window.activateVideo(video);
+
+    // If the video has enough data, play immediately
+    if (video.readyState >= 2) {
+      var p = video.play();
+      if (p) p.catch(function(){});
+      return;
+    }
+
+    // Otherwise wait for data before playing to avoid black flash
+    function playWhenReady() {
+      var p = video.play();
+      if (p) p.catch(function(){});
+    }
+    video.addEventListener('loadeddata', playWhenReady, { once: true });
+    // Also try canplay as fallback
+    video.addEventListener('canplay', playWhenReady, { once: true });
+  }
+
+  var userInitiated = false;
+
+  function showWrap(activeWrap, inactiveWrap, activeVideo, inactiveVideo) {
+    activeWrap.classList.add('is-active');
+    inactiveWrap.classList.remove('is-active');
+    activeWrap.style.opacity = '1'; activeWrap.style.visibility = 'visible'; activeWrap.style.pointerEvents = 'auto'; activeWrap.style.zIndex = '2';
+    inactiveWrap.style.opacity = '0'; inactiveWrap.style.visibility = 'hidden'; inactiveWrap.style.pointerEvents = 'none'; inactiveWrap.style.zIndex = '1';
+    if (isVideoSlider) {
+      if (inactiveVideo) inactiveVideo.pause();
+      if (userInitiated && activeVideo) {
+        requestAnimationFrame(function() { activeVideo.currentTime = 0; safePlay(activeVideo); });
+      }
+    }
+  }
+
+  function showBefore() {
+    slider.dataset.view = 'before';
+    showWrap(beforeWrap, afterWrap, beforeVideo, afterVideo);
+    toggle.textContent = 'SEE AFTER';
+    toggle.classList.add('is-before');
+    toggle.classList.remove('is-after');
+  }
+
+  function showAfter() {
+    slider.dataset.view = 'after';
+    showWrap(afterWrap, beforeWrap, afterVideo, beforeVideo);
+    toggle.textContent = 'SEE BEFORE';
+    toggle.classList.remove('is-before');
+    toggle.classList.add('is-after');
+  }
+
+  if (isVideoSlider) {
+    beforeVideo.loop = true;
+    afterVideo.loop = true;
+  }
+
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    userInitiated = true;
+    pauseAllSliders(slider);
+    if (playOverlay) playOverlay.classList.add('is-hidden');
+    if (slider.dataset.view === 'before') showAfter();
+    else showBefore();
+  });
+
+  if (playOverlay) {
+    playOverlay.addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      userInitiated = true;
+      pauseAllSliders(slider);
+      playOverlay.classList.add('is-hidden');
+      var activeVideo = slider.querySelector('.ba-video.is-active video');
+      if (activeVideo) {
+        activeVideo.currentTime = 0;
+        safePlay(activeVideo);
+      }
+    });
+  }
+
+  // Init: respect which wrap has is-active in the HTML
+  if (afterWrap.classList.contains('is-active')) {
+    showAfter();
+  } else {
+    showBefore();
+  }
+}
+
+// Expose globally for the auto-scroll duplicator
+window.initBASlider = initBASlider;
+
+// Init all BA sliders on page load
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.ba-slider').forEach(initBASlider);
+});
+
+// ═══════════════════════════════════════
+// VIDEO VISIBILITY OBSERVER (pause off-screen only — NO auto-play)
+// ═══════════════════════════════════════
+// Videos stay on their poster thumbnail until the user explicitly
+// interacts (clicks toggle). This observer only pauses videos that
+// scroll out of view to save resources.
+document.addEventListener('DOMContentLoaded', function() {
+  var allVideos = document.querySelectorAll('.ba-slider video, .tvcard video');
+  var videoVisibilityObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) {
+        entry.target.pause();
+      }
+    });
+  }, { threshold: 0.1 });
+  allVideos.forEach(function(v) { videoVisibilityObs.observe(v); });
+});
+
+// ═══════════════════════════════════════
+// INFINITE AUTO-SCROLL TRACKS
+// ═══════════════════════════════════════
+(function() {
+  var mobileQuery = window.matchMedia('(max-width: 600px)');
+
+  document.querySelectorAll('.tscroll-track .tscroll-inner').forEach(function(inner) {
+    if (inner.dataset.loopReady === 'true') return;
+    inner.dataset.loopReady = 'true';
+
+    var originalMarkup = inner.innerHTML;
+    inner.innerHTML += originalMarkup;
+
+    // Activate lazy iframes in cloned content (they missed the initial observer)
+    if (typeof window.activateIframe === 'function') {
+      inner.querySelectorAll('iframe[data-src]').forEach(window.activateIframe);
+    }
+
+    // DON'T eagerly activate video sources — let the lazy loader + play overlay handle them on demand
+
+    if (typeof window.primeScrollerVideo === 'function') {
+      inner.querySelectorAll('video').forEach(window.primeScrollerVideo);
+    }
+
+    if (typeof window.registerTestimonialCard === 'function') {
+      inner.querySelectorAll('.tvcard').forEach(function(card) {
+        card.dataset.videoReady = '';
+        window.registerTestimonialCard(card);
+      });
+    }
+
+    // Re-initialize BA slider toggle logic on cloned sliders
+    if (typeof window.initBASlider === 'function') {
+      inner.querySelectorAll('.ba-slider').forEach(window.initBASlider);
+    }
+
+    var speed = inner.closest('.results-video-scroll') ? 0.55 : 0.6;
+    var isPaused = false;
+    var pauseUntil = 0;
+
+    function pauseTrack(duration) {
+      isPaused = true;
+      pauseUntil = Math.max(pauseUntil, Date.now() + (duration || 2200));
+    }
+
+    function resumeTrack() {
+      if (Date.now() >= pauseUntil) isPaused = false;
+    }
+
+    function autoScroll() {
+      var disableLoop = mobileQuery.matches;
+      resumeTrack();
+      if (!isPaused && !disableLoop) {
+        inner.scrollLeft += speed;
+        if (inner.scrollLeft >= inner.scrollWidth / 2) inner.scrollLeft -= inner.scrollWidth / 2;
+      }
+      requestAnimationFrame(autoScroll);
+    }
+
+    inner.addEventListener('mouseenter', function() { pauseTrack(1000000); });
+    inner.addEventListener('mouseleave', function() { pauseUntil = 0; resumeTrack(); });
+    inner.addEventListener('touchstart', function() { pauseTrack(2600); }, { passive: true });
+    inner.addEventListener('touchend', function() { pauseTrack(1800); });
+    inner.addEventListener('focusin', function() { pauseTrack(3200); });
+    inner.addEventListener('click', function(event) {
+      if (event.target.closest('.tvcard-play-btn, .ba-toggle, .tscroll-nav-btn')) pauseTrack(3200);
+    });
+
+    inner.querySelectorAll('.tvcard-video, .tvcard-play-btn, .ba-toggle, .ba-slider').forEach(function(control) {
+      control.addEventListener('pointerdown', function() { pauseTrack(3200); });
+    });
+
+    requestAnimationFrame(autoScroll);
+  });
+})();
+</script>
+</body>
+</html>
