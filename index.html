@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:image" content="Images/anton.png">
-  <meta property="og:title" content="STEVETHNX — SubMax Coaching System">
+  <meta property="og:title" content="STEVETHNX — WEAK LINK METHOD">
   <meta property="og:description" content="True strength is engineered. Calisthenics coaching built on science—not ego.">
   <meta property="og:type" content="website">
   <title>STEVETHNX — Steven's SubMax Coaching</title>
@@ -26,8 +26,8 @@
     --text: #f0f0f0;
     --muted: #666666;
     --muted2: #999999;
-    --accent: #d1541a;
-    --accent-light: #ff9c19;
+    --accent: #1a5fd1;
+    --accent-light: #19a0ff;
     --radius: 8px;
   }
 
@@ -39,8 +39,8 @@
   html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
   img, video, iframe, canvas { max-width: 100%; height: auto; }
 
-  ::selection { background: rgba(209,84,26,0.3); color: #fff; }
-  ::-moz-selection { background: rgba(209,84,26,0.3); color: #fff; }
+  ::selection { background: rgba(26,95,209,0.3); color: #fff; }
+  ::-moz-selection { background: rgba(26,95,209,0.3); color: #fff; }
 
   body {
     background: var(--bg);
@@ -79,14 +79,18 @@
     * { cursor: auto !important; }
   }
 
-  /* ══════════════════════════════════════
-     GRAIN OVERLAY
-  ══════════════════════════════════════ */
-  body::after {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9998; opacity: 0.4;
+  /* GRAIN OVERLAY REMOVED */
+
+  /* Hero stop guessing callout */
+  .hero-stop-guessing {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(20px, 2.8vw, 36px);
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 24px auto 0;
+    text-align: center;
+    opacity: 0.85;
+    animation: fadeUp 0.8s 0.15s ease both;
   }
 
   /* ══════════════════════════════════════
@@ -99,12 +103,7 @@
     will-change: contents;
   }
 
-  #fire-canvas {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; z-index: 0; opacity: 0.9;
-    will-change: contents;
-  }
+  /* fire-canvas removed */
 
   /* Ensure page sections sit above fire canvas */
   #hero, section, .full-section, .qualifier-strip,
@@ -135,13 +134,13 @@
     bottom: 0; left: 0; right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), var(--accent), transparent);
-    box-shadow: 0 0 8px rgba(209,84,26,0.5), 0 0 20px rgba(209,84,26,0.2);
+    box-shadow: 0 0 8px rgba(26,95,209,0.5), 0 0 20px rgba(26,95,209,0.2);
     animation: navLineGlow 3s ease-in-out infinite;
   }
 
   @keyframes navLineGlow {
-    0%, 100% { opacity: 0.7; box-shadow: 0 0 6px rgba(209,84,26,0.4), 0 0 14px rgba(209,84,26,0.15); }
-    50% { opacity: 1; box-shadow: 0 0 12px rgba(209,84,26,0.6), 0 0 28px rgba(209,84,26,0.25); }
+    0%, 100% { opacity: 0.7; box-shadow: 0 0 6px rgba(26,95,209,0.4), 0 0 14px rgba(26,95,209,0.15); }
+    50% { opacity: 1; box-shadow: 0 0 12px rgba(26,95,209,0.6), 0 0 28px rgba(26,95,209,0.25); }
   }
 
   nav.scrolled {
@@ -164,7 +163,7 @@
     font-family: 'DM Mono', monospace;
     font-size: 10px; letter-spacing: 2.5px;
     padding: 11px 28px;
-    border: 1px solid rgba(209,84,26,0.4);
+    border: 1px solid rgba(26,95,209,0.4);
     border-radius: 4px;
     cursor: none; text-decoration: none;
     display: inline-block;
@@ -172,15 +171,15 @@
     -webkit-tap-highlight-color: transparent;
     outline: none;
     text-transform: uppercase;
-    box-shadow: 0 0 12px rgba(209,84,26,0.15);
+    box-shadow: 0 0 12px rgba(26,95,209,0.15);
   }
 
   .nav-cta:hover,
   .nav-cta.aura-active {
-    border-color: rgba(209,84,26,0.8);
+    border-color: rgba(26,95,209,0.8);
     color: #fff;
     transform: translateY(-1px);
-    box-shadow: 0 0 20px rgba(209,84,26,0.35), 0 0 40px rgba(209,84,26,0.12);
+    box-shadow: 0 0 20px rgba(26,95,209,0.35), 0 0 40px rgba(26,95,209,0.12);
   }
 
   /* ══════════════════════════════════════
@@ -189,8 +188,8 @@
   .grid-bg {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(232,213,176,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(232,213,176,0.025) 1px, transparent 1px);
+      linear-gradient(rgba(176,213,232,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(176,213,232,0.025) 1px, transparent 1px);
     background-size: 80px 80px;
     pointer-events: none;
   }
@@ -211,13 +210,13 @@
 
   .hero-glow {
     position: absolute; width: 900px; height: 900px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(209,84,26,0.06) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(26,95,209,0.06) 0%, transparent 65%);
     top: -300px; right: -300px; pointer-events: none;
   }
 
   .hero-glow2 {
     position: absolute; width: 600px; height: 600px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(209,84,26,0.04) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(26,95,209,0.04) 0%, transparent 65%);
     bottom: -200px; left: -200px; pointer-events: none;
   }
 
@@ -228,7 +227,7 @@
     transform: translate(-50%, -50%);
     width: 800px; height: 400px;
     border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(209,84,26,0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(26,95,209,0.08) 0%, transparent 70%);
     pointer-events: none;
     filter: blur(40px);
   }
@@ -293,37 +292,37 @@
 
   .hero-training-letter {
     display: inline;
-    color: #e8853a;
-    -webkit-text-fill-color: #e8853a;
+    color: #3a85e8;
+    -webkit-text-fill-color: #3a85e8;
     -webkit-tap-highlight-color: transparent;
     font-weight: 400;
   }
   .hero-training-letter::before { content: none; }
 
   @keyframes trainingFlicker {
-    0%    { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
-    27.0% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    0%    { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
+    27.0% { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
     27.5% { opacity:0.08; text-shadow: none; }
-    28.0% { opacity:1; text-shadow: 0 0 8px #FF4500, 0 0 22px rgba(255,69,0,0.7), 0 0 50px rgba(255,69,0,0.35), 0 0 80px rgba(255,69,0,0.2); }
+    28.0% { opacity:1; text-shadow: 0 0 8px #0075FF, 0 0 22px rgba(0,117,255,0.7), 0 0 50px rgba(0,117,255,0.35), 0 0 80px rgba(0,117,255,0.2); }
     28.5% { opacity:0.08; text-shadow: none; }
-    29.5% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
-    62.0% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    29.5% { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
+    62.0% { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
     62.5% { opacity:0.08; text-shadow: none; }
-    63.0% { opacity:1; text-shadow: 0 0 8px #FF4500, 0 0 22px rgba(255,69,0,0.7), 0 0 50px rgba(255,69,0,0.35), 0 0 80px rgba(255,69,0,0.2); }
+    63.0% { opacity:1; text-shadow: 0 0 8px #0075FF, 0 0 22px rgba(0,117,255,0.7), 0 0 50px rgba(0,117,255,0.35), 0 0 80px rgba(0,117,255,0.2); }
     63.5% { opacity:0.08; text-shadow: none; }
-    64.0% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    64.0% { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
     64.5% { opacity:0.08; text-shadow: none; }
-    65.5% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
-    72.3% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    65.5% { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
+    72.3% { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
     72.8% { opacity:0.08; text-shadow: none; }
-    73.3% { opacity:1; text-shadow: 0 0 8px #FF4500, 0 0 22px rgba(255,69,0,0.7), 0 0 50px rgba(255,69,0,0.35), 0 0 80px rgba(255,69,0,0.2); }
+    73.3% { opacity:1; text-shadow: 0 0 8px #0075FF, 0 0 22px rgba(0,117,255,0.7), 0 0 50px rgba(0,117,255,0.35), 0 0 80px rgba(0,117,255,0.2); }
     73.8% { opacity:0.08; text-shadow: none; }
-    74.8% { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
-    100%  { opacity:1; text-shadow: 0 0 6px #FF4500, 0 0 16px rgba(255,69,0,0.6), 0 0 40px rgba(255,69,0,0.3), 0 0 70px rgba(255,69,0,0.15); }
+    74.8% { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
+    100%  { opacity:1; text-shadow: 0 0 6px #0075FF, 0 0 16px rgba(0,117,255,0.6), 0 0 40px rgba(0,117,255,0.3), 0 0 70px rgba(0,117,255,0.15); }
   }
 
   .strength-glow {
-    color: #FF8C00;
+    color: #0090FF;
     animation: trainingFlicker 7.4s linear infinite;
     animation-delay: 0.5s;
   }
@@ -338,9 +337,9 @@
     text-align: center;
     margin: 32px auto 0;
     padding: 12px 28px;
-    border: 1px solid rgba(209,84,26,0.25);
+    border: 1px solid rgba(26,95,209,0.25);
     border-radius: 999px;
-    background: rgba(209,84,26,0.05);
+    background: rgba(26,95,209,0.05);
     display: inline-block;
     animation: fadeUp 0.8s 0.2s ease both;
   }
@@ -389,7 +388,7 @@
     font-size: clamp(22px, 3.5vw, 56px);
     letter-spacing: 0.22em;
     color: var(--accent);
-    text-shadow: 0 0 8px rgba(209,84,26,0.5), 0 0 20px rgba(209,84,26,0.25);
+    text-shadow: 0 0 8px rgba(26,95,209,0.5), 0 0 20px rgba(26,95,209,0.25);
     white-space: nowrap;
   }
 
@@ -432,18 +431,18 @@
     font-family: 'DM Mono', monospace;
     font-size: 11px; letter-spacing: 2.5px; font-weight: 500;
     padding: 18px 44px;
-    border: 1px solid rgba(209,84,26,0.4);
+    border: 1px solid rgba(26,95,209,0.4);
     border-radius: var(--radius); cursor: none;
     text-decoration: none; display: inline-block;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    box-shadow: 0 0 16px rgba(209,84,26,0.15), 0 0 4px rgba(209,84,26,0.1);
+    box-shadow: 0 0 16px rgba(26,95,209,0.15), 0 0 4px rgba(26,95,209,0.1);
   }
   .btn-primary:hover {
-    border-color: rgba(209,84,26,0.8);
+    border-color: rgba(26,95,209,0.8);
     color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 0 24px rgba(209,84,26,0.35), 0 0 48px rgba(209,84,26,0.15), 0 8px 24px rgba(0,0,0,0.3);
+    box-shadow: 0 0 24px rgba(26,95,209,0.35), 0 0 48px rgba(26,95,209,0.15), 0 8px 24px rgba(0,0,0,0.3);
   }
 
   .btn-ghost {
@@ -458,8 +457,8 @@
     text-transform: uppercase;
   }
   .btn-ghost:hover {
-    border-color: rgba(209,84,26,0.5); color: var(--accent);
-    box-shadow: 0 0 12px rgba(209,84,26,0.1);
+    border-color: rgba(26,95,209,0.5); color: var(--accent);
+    box-shadow: 0 0 12px rgba(26,95,209,0.1);
   }
 
   /* Dark variant for specific CTAs */
@@ -579,25 +578,25 @@
   .video-after-cta .btn-primary {
     background: #000;
     color: var(--accent);
-    border: 1px solid rgba(209,84,26,0.4);
+    border: 1px solid rgba(26,95,209,0.4);
     padding: 20px 52px;
     font-size: 12px;
     letter-spacing: 3px;
     border-radius: var(--radius);
-    box-shadow: 0 0 20px rgba(209,84,26,0.2), 0 0 6px rgba(209,84,26,0.15);
+    box-shadow: 0 0 20px rgba(26,95,209,0.2), 0 0 6px rgba(26,95,209,0.15);
     transition: all 0.3s ease;
     animation: ctaBreathe 3s ease-in-out infinite;
   }
 
   @keyframes ctaBreathe {
-    0%, 100% { box-shadow: 0 0 16px rgba(209,84,26,0.15), 0 0 4px rgba(209,84,26,0.1); }
-    50% { box-shadow: 0 0 24px rgba(209,84,26,0.3), 0 0 48px rgba(209,84,26,0.1); }
+    0%, 100% { box-shadow: 0 0 16px rgba(26,95,209,0.15), 0 0 4px rgba(26,95,209,0.1); }
+    50% { box-shadow: 0 0 24px rgba(26,95,209,0.3), 0 0 48px rgba(26,95,209,0.1); }
   }
 
   .video-after-cta .btn-primary:hover {
-    border-color: rgba(209,84,26,0.8);
+    border-color: rgba(26,95,209,0.8);
     color: #fff;
-    box-shadow: 0 0 28px rgba(209,84,26,0.4), 0 0 56px rgba(209,84,26,0.15);
+    box-shadow: 0 0 28px rgba(26,95,209,0.4), 0 0 56px rgba(26,95,209,0.15);
     transform: translateY(-2px);
     animation: none;
   }
@@ -627,8 +626,8 @@
   }
 
   @keyframes borderGlow {
-    0%, 100% { border-color: rgba(209,84,26,0.5); box-shadow: 0 0 8px rgba(209,84,26,0.2), 0 0 20px rgba(209,84,26,0.08); }
-    50% { border-color: rgba(255,156,25,0.6); box-shadow: 0 0 12px rgba(255,156,25,0.3), 0 0 28px rgba(255,156,25,0.12); }
+    0%, 100% { border-color: rgba(26,95,209,0.5); box-shadow: 0 0 8px rgba(26,95,209,0.2), 0 0 20px rgba(26,95,209,0.08); }
+    50% { border-color: rgba(25,160,255,0.6); box-shadow: 0 0 12px rgba(25,160,255,0.3), 0 0 28px rgba(25,160,255,0.12); }
   }
 
   .coach-badge {
@@ -752,8 +751,8 @@
     margin-bottom: 14px;
   }
   .submax-card--highlight {
-    border-color: rgba(209,84,26,0.3);
-    background: rgba(209,84,26,0.03);
+    border-color: rgba(26,95,209,0.3);
+    background: rgba(26,95,209,0.03);
   }
 
   /* ══════════════════════════════════════
@@ -812,8 +811,8 @@
   }
 
   .tvcard-video-wrap:hover {
-    border-color: rgba(209,84,26,0.4);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 16px rgba(209,84,26,0.15);
+    border-color: rgba(26,95,209,0.4);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 16px rgba(26,95,209,0.15);
   }
 
   .tvcard-video {
@@ -826,7 +825,7 @@
 
   .tvcard-play-btn {
     align-self: center;
-    border: 1px solid rgba(209,84,26,0.55);
+    border: 1px solid rgba(26,95,209,0.55);
     background: transparent;
     color: var(--text);
     border-radius: 999px;
@@ -839,8 +838,8 @@
     position: relative; z-index: 2;
   }
 
-  .tvcard-play-btn.is-playing { background: rgba(209,84,26,0.2); border-color: rgba(255,156,25,0.9); color: #fff; }
-  .tvcard-play-btn:hover { background: rgba(209,84,26,0.18); border-color: rgba(209,84,26,0.85); transform: translateY(-1px); }
+  .tvcard-play-btn.is-playing { background: rgba(26,95,209,0.2); border-color: rgba(25,160,255,0.9); color: #fff; }
+  .tvcard-play-btn:hover { background: rgba(26,95,209,0.18); border-color: rgba(26,95,209,0.85); transform: translateY(-1px); }
   .tvcard-play-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .tvcard-play-icon { font-size: 12px; line-height: 1; }
 
@@ -872,7 +871,7 @@
      CTA BANNER
   ══════════════════════════════════════ */
   .cta-banner { text-align: center; padding: 120px 60px; position: relative; overflow: hidden; }
-  .cta-banner-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(209,84,26,0.04) 0%, transparent 65%); pointer-events: none; }
+  .cta-banner-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(26,95,209,0.04) 0%, transparent 65%); pointer-events: none; }
   .cta-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 8vw, 100px); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; position: relative; z-index: 1; }
   .cta-banner-sub { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--muted2); max-width: 480px; margin: 0 auto 48px; line-height: 1.9; letter-spacing: 0.02em; position: relative; z-index: 1; }
 
@@ -916,7 +915,7 @@
     transition: all 0.2s; user-select: none;
   }
   .radio-opt:hover { border-color: var(--border2); color: var(--text); }
-  .radio-opt.selected { border-color: var(--accent); color: var(--accent); background: rgba(232,213,176,0.06); }
+  .radio-opt.selected { border-color: var(--accent); color: var(--accent); background: rgba(176,213,232,0.06); }
 
   /* Seriousness slider */
   .seriousness-track { position: relative; height: 4px; background: var(--border); border-radius: 2px; margin: 16px 0 8px; }
@@ -926,7 +925,7 @@
   .seriousness-labels { display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 1px; color: var(--muted); margin-top: 12px; }
   .seriousness-value { text-align: center; margin-top: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--accent); }
 
-  .typeform-note { padding: 16px 20px; background: rgba(232,213,176,0.04); border: 1px solid rgba(232,213,176,0.15); border-radius: 4px; font-size: 11px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+  .typeform-note { padding: 16px 20px; background: rgba(176,213,232,0.04); border: 1px solid rgba(176,213,232,0.15); border-radius: 4px; font-size: 11px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
   .typeform-note strong { color: var(--accent); font-weight: 400; }
 
   .form-submit-btn {
@@ -1026,15 +1025,15 @@
   .ba-play-circle {
     width: 56px; height: 56px;
     border-radius: 50%;
-    background: rgba(209,84,26,0.9);
+    background: rgba(26,95,209,0.9);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 24px rgba(209,84,26,0.4), 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 0 24px rgba(26,95,209,0.4), 0 4px 12px rgba(0,0,0,0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .ba-play-overlay:hover .ba-play-circle {
     transform: scale(1.1);
-    box-shadow: 0 0 32px rgba(209,84,26,0.6), 0 6px 16px rgba(0,0,0,0.4);
+    box-shadow: 0 0 32px rgba(26,95,209,0.6), 0 6px 16px rgba(0,0,0,0.4);
   }
 
   .ba-play-icon {
@@ -1054,7 +1053,7 @@
     cursor: pointer; transition: all 0.25s ease;
   }
 
-  .ba-toggle.is-after { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 10px rgba(209,84,26,0.5); }
+  .ba-toggle.is-after { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 10px rgba(26,95,209,0.5); }
   .ba-toggle.is-before { background: rgba(0,0,0,0.85); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15); }
 
   .ba-toggle-btn {
@@ -1183,9 +1182,9 @@
     font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase;
     cursor: pointer; transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   }
-  .results-mini-play-btn:hover { transform: translateY(-1px); background: rgba(209,84,26,0.18); border-color: rgba(209,84,26,0.75); }
+  .results-mini-play-btn:hover { transform: translateY(-1px); background: rgba(26,95,209,0.18); border-color: rgba(26,95,209,0.75); }
   .results-mini-play-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .results-mini-play-btn.is-playing { background: rgba(209,84,26,0.24); border-color: rgba(255,156,25,0.92); }
+  .results-mini-play-btn.is-playing { background: rgba(26,95,209,0.24); border-color: rgba(25,160,255,0.92); }
   .results-mini-play-icon { font-size: 10px; line-height: 1; }
 
   /* Fade edges */
@@ -1210,21 +1209,21 @@
   .tscroll-nav-btn {
     position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
     width: 48px; height: 48px; border-radius: 50%;
-    background: rgba(10,10,10,0.85); border: 1.5px solid #d1541a;
-    color: #d1541a; font-size: 20px;
+    background: rgba(10,10,10,0.85); border: 1.5px solid #1a5fd1;
+    color: #1a5fd1; font-size: 20px;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-    box-shadow: 0 0 10px rgba(209,84,26,0.4);
+    box-shadow: 0 0 10px rgba(26,95,209,0.4);
   }
-  .tscroll-nav-btn:hover { background: #d1541a; color: #fff; box-shadow: 0 0 18px rgba(209,84,26,0.7); }
+  .tscroll-nav-btn:hover { background: #1a5fd1; color: #fff; box-shadow: 0 0 18px rgba(26,95,209,0.7); }
   .tscroll-btn-prev { left: 10px; }
   .tscroll-btn-next { right: 10px; }
 
   .results-scroll-header { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 18px 0; text-align: center; }
   .results-scroll-label { font-family: 'Bebas Neue', sans-serif; font-size: clamp(24px, 3vw, 34px); letter-spacing: 0.08em; color: #ffffff; }
-  .results-scroll-arrow { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid rgba(209,84,26,0.5); background: rgba(255,255,255,0.03); color: var(--accent); font-size: 20px; line-height: 1; box-shadow: 0 0 10px rgba(209,84,26,0.18); cursor: pointer; transition: all 0.2s; }
-  .results-scroll-arrow:hover { background: var(--accent); color: #000; box-shadow: 0 0 18px rgba(209,84,26,0.5); }
+  .results-scroll-arrow { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid rgba(26,95,209,0.5); background: rgba(255,255,255,0.03); color: var(--accent); font-size: 20px; line-height: 1; box-shadow: 0 0 10px rgba(26,95,209,0.18); cursor: pointer; transition: all 0.2s; }
+  .results-scroll-arrow:hover { background: var(--accent); color: #000; box-shadow: 0 0 18px rgba(26,95,209,0.5); }
 
   .results-video-scroll .tscroll-nav-btn { display: flex; }
 
@@ -1233,8 +1232,8 @@
   ══════════════════════════════════════ */
   #page-progress-slider { position: fixed; right: 16px; top: 50%; transform: translateY(-50%); z-index: 9000; display: flex; flex-direction: column; align-items: center; gap: 0; pointer-events: none; user-select: none; }
   #page-progress-track { position: relative; width: 4px; height: 160px; background: rgba(255,255,255,0.12); border-radius: 2px; pointer-events: all; cursor: pointer; }
-  #page-progress-fill { position: absolute; top: 0; left: 0; width: 100%; border-radius: 2px; background: linear-gradient(to bottom, #d1541a, #ff9c19); box-shadow: 0 0 8px rgba(209,84,26,0.6); transition: height 0.1s; pointer-events: none; }
-  #page-progress-thumb { position: absolute; left: 50%; transform: translateX(-50%) translateY(-50%); width: 14px; height: 14px; border-radius: 50%; background: #d1541a; border: 2px solid #fff; box-shadow: 0 0 10px rgba(209,84,26,0.7); pointer-events: all; cursor: grab; transition: top 0.1s; z-index: 2; }
+  #page-progress-fill { position: absolute; top: 0; left: 0; width: 100%; border-radius: 2px; background: linear-gradient(to bottom, #1a5fd1, #19a0ff); box-shadow: 0 0 8px rgba(26,95,209,0.6); transition: height 0.1s; pointer-events: none; }
+  #page-progress-thumb { position: absolute; left: 50%; transform: translateX(-50%) translateY(-50%); width: 14px; height: 14px; border-radius: 50%; background: #1a5fd1; border: 2px solid #fff; box-shadow: 0 0 10px rgba(26,95,209,0.7); pointer-events: all; cursor: grab; transition: top 0.1s; z-index: 2; }
   #page-progress-thumb:active { cursor: grabbing; }
 
   /* ══════════════════════════════════════
@@ -1246,15 +1245,15 @@
     position: relative; display: inline-block;
     padding: 24px 64px; font-size: 18px; font-weight: 600;
     color: var(--accent); text-decoration: none; text-transform: uppercase; letter-spacing: 4px;
-    background: #000; border: 1px solid rgba(209,84,26,0.4); border-radius: var(--radius); overflow: hidden;
+    background: #000; border: 1px solid rgba(26,95,209,0.4); border-radius: var(--radius); overflow: hidden;
     font-family: 'DM Mono', monospace;
     transition: all 0.3s ease;
-    box-shadow: 0 0 24px rgba(209,84,26,0.2), 0 0 8px rgba(209,84,26,0.15);
+    box-shadow: 0 0 24px rgba(26,95,209,0.2), 0 0 8px rgba(26,95,209,0.15);
   }
   .glitch-btn:hover {
     color: #fff;
-    border-color: rgba(209,84,26,0.8);
-    box-shadow: 0 0 32px rgba(209,84,26,0.4), 0 0 64px rgba(209,84,26,0.15), 0 8px 24px rgba(0,0,0,0.3);
+    border-color: rgba(26,95,209,0.8);
+    box-shadow: 0 0 32px rgba(26,95,209,0.4), 0 0 64px rgba(26,95,209,0.15), 0 8px 24px rgba(0,0,0,0.3);
     transform: translateY(-2px);
   }
 
@@ -1290,15 +1289,15 @@
     font-family: 'DM Mono', monospace;
     font-size: 11px; letter-spacing: 3px;
     padding: 12px 28px;
-    border: 1px solid rgba(209,84,26,0.3);
+    border: 1px solid rgba(26,95,209,0.3);
     border-radius: 999px;
     transition: all 0.3s ease;
     margin-top: 8px;
   }
 
   .footer-back-top:hover {
-    border-color: rgba(209,84,26,0.6);
-    box-shadow: 0 0 16px rgba(209,84,26,0.2);
+    border-color: rgba(26,95,209,0.6);
+    box-shadow: 0 0 16px rgba(26,95,209,0.2);
     transform: translateY(-2px);
   }
 
@@ -1604,13 +1603,13 @@
   }
 
   .philosophy-step:hover {
-    border-color: rgba(209,84,26,0.4);
-    box-shadow: -3px 0 18px rgba(209,84,26,0.12), 3px 0 18px rgba(209,84,26,0.12);
+    border-color: rgba(26,95,209,0.4);
+    box-shadow: -3px 0 18px rgba(26,95,209,0.12), 3px 0 18px rgba(26,95,209,0.12);
   }
 
   .philosophy-step--highlight {
     border-color: var(--accent);
-    box-shadow: -3px 0 18px rgba(209,84,26,0.18), 3px 0 18px rgba(209,84,26,0.18), 0 3px 18px rgba(209,84,26,0.10), 0 -3px 18px rgba(209,84,26,0.10);
+    box-shadow: -3px 0 18px rgba(26,95,209,0.18), 3px 0 18px rgba(26,95,209,0.18), 0 3px 18px rgba(26,95,209,0.10), 0 -3px 18px rgba(26,95,209,0.10);
   }
 
   .philosophy-step-title {
@@ -1667,20 +1666,20 @@
     body { cursor: auto; }
 
     @keyframes trainingFlickerMobile {
-      0%    { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
-      27.0% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      0%    { opacity:1; text-shadow: 0 0 4px #0075FF, 0 0 10px #0075FF, 0 0 20px rgba(0,117,255,0.4); }
+      27.0% { opacity:1; text-shadow: 0 0 4px #0075FF, 0 0 10px #0075FF, 0 0 20px rgba(0,117,255,0.4); }
       27.5% { opacity:0.15; text-shadow: none; }
-      28.0% { opacity:1; text-shadow: 0 0 5px #FF4500, 0 0 14px #FF4500, 0 0 25px rgba(255,69,0,0.5); }
+      28.0% { opacity:1; text-shadow: 0 0 5px #0075FF, 0 0 14px #0075FF, 0 0 25px rgba(0,117,255,0.5); }
       28.5% { opacity:0.15; text-shadow: none; }
-      29.5% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
-      62.0% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      29.5% { opacity:1; text-shadow: 0 0 4px #0075FF, 0 0 10px #0075FF, 0 0 20px rgba(0,117,255,0.4); }
+      62.0% { opacity:1; text-shadow: 0 0 4px #0075FF, 0 0 10px #0075FF, 0 0 20px rgba(0,117,255,0.4); }
       62.5% { opacity:0.15; text-shadow: none; }
-      63.0% { opacity:1; text-shadow: 0 0 5px #FF4500, 0 0 14px #FF4500, 0 0 25px rgba(255,69,0,0.5); }
+      63.0% { opacity:1; text-shadow: 0 0 5px #0075FF, 0 0 14px #0075FF, 0 0 25px rgba(0,117,255,0.5); }
       63.5% { opacity:0.15; text-shadow: none; }
-      64.0% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      64.0% { opacity:1; text-shadow: 0 0 4px #0075FF, 0 0 10px #0075FF, 0 0 20px rgba(0,117,255,0.4); }
       64.5% { opacity:0.15; text-shadow: none; }
-      65.5% { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
-      100%  { opacity:1; text-shadow: 0 0 4px #FF4500, 0 0 10px #FF4500, 0 0 20px rgba(255,69,0,0.4); }
+      65.5% { opacity:1; text-shadow: 0 0 4px #0075FF, 0 0 10px #0075FF, 0 0 20px rgba(0,117,255,0.4); }
+      100%  { opacity:1; text-shadow: 0 0 4px #0075FF, 0 0 10px #0075FF, 0 0 20px rgba(0,117,255,0.4); }
     }
 
     nav {
@@ -1933,14 +1932,14 @@
   .tcard-play-overlay .ba-play-circle {
     width: 56px; height: 56px;
     border-radius: 50%;
-    background: rgba(209,84,26,0.9);
+    background: rgba(26,95,209,0.9);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 24px rgba(209,84,26,0.4), 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 0 24px rgba(26,95,209,0.4), 0 4px 12px rgba(0,0,0,0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .tcard-play-overlay:hover .ba-play-circle {
     transform: scale(1.1);
-    box-shadow: 0 0 32px rgba(209,84,26,0.6), 0 6px 16px rgba(0,0,0,0.4);
+    box-shadow: 0 0 32px rgba(26,95,209,0.6), 0 6px 16px rgba(0,0,0,0.4);
   }
   .tcard-play-overlay .ba-play-icon {
     width: 0; height: 0;
@@ -1967,8 +1966,8 @@
   }
 
   .tvcard-video-wrap:hover {
-    border-color: rgba(209,84,26,0.4);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 16px rgba(209,84,26,0.15);
+    border-color: rgba(26,95,209,0.4);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 16px rgba(26,95,209,0.15);
   }
 
   .tvcard-video-wrap video.tvcard-video {
@@ -2055,7 +2054,6 @@
   </div>
 </div>
 <canvas id="aura-canvas"></canvas>
-<canvas id="fire-canvas"></canvas>
 
 <!-- ════════════════════════════════════════
      NAVIGATION
@@ -2077,13 +2075,13 @@
   <div class="hero-content">
 
     <!-- Eyebrow -->
-    <div class="hero-eyebrow">SUBMAX COACHING SYSTEM</div>
+    <div class="hero-eyebrow">WEAK LINK METHOD</div>
 
     <!-- Main statement -->
     <h1 class="hero-title">
-      TRUE STRENGTH IS<br>
+      STOP GUESSING.<br>
       <span class="hero-training-wrap" style="letter-spacing: 0.03em;">
-        <span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="N">N</span><span class="hero-training-letter" data-l="G">G</span><span class="hero-training-letter" data-l="I">I</span><span class="hero-training-letter" data-l="N">N</span><span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="R">R</span><span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="D">D</span><span class="hero-training-letter" data-l=".">.</span>
+        <span class="hero-training-letter" data-l="S">S</span><span class="hero-training-letter" data-l="T">T</span><span class="hero-training-letter" data-l="A">A</span><span class="hero-training-letter" data-l="R">R</span><span class="hero-training-letter" data-l="T">T</span> <span class="hero-training-letter" data-l="P">P</span><span class="hero-training-letter" data-l="R">R</span><span class="hero-training-letter" data-l="O">O</span><span class="hero-training-letter" data-l="G">G</span><span class="hero-training-letter" data-l="R">R</span><span class="hero-training-letter" data-l="E">E</span><span class="hero-training-letter" data-l="S">S</span><span class="hero-training-letter" data-l="S">S</span><span class="hero-training-letter" data-l="I">I</span><span class="hero-training-letter" data-l="N">N</span><span class="hero-training-letter" data-l="G">G</span><span class="hero-training-letter" data-l=".">.</span>
       </span>
       <span class="hero-title-secondary">NOT LEFT TO CHANCE.</span>
     </h1>
@@ -2093,7 +2091,7 @@
 
     <!-- Supporting tagline -->
     <p class="hero-tagline">
-      A structured, methodical system designed to help you master advanced skills, regardless of your starting point or physical predispositions.
+      Advanced calisthenics coaching for athletes who are tired of training hard without moving forward.
     </p>
 
     <!-- Divider -->
@@ -2114,9 +2112,9 @@
 <div class="full-section" id="video-section">
   <div class="video-wrap reveal">
     <div class="video-label">— WATCH BEFORE YOU APPLY —</div>
-    <h3 class="video-title">THE SUBMAX METHOD<br>EXPLAINED.</h3>
+    <h3 class="video-title">THE WEAK LINK METHOD<br>EXPLAINED.</h3>
     <p class="video-sub">
-      Watch Steven break down the system that has helped hundreds of athletes achieve remarkable progress in calisthenics. Understand who it's for, how it works, and the science that drives its results.
+      Watch Steven break down the system that has helped athletes all around the globe achieve remarkable progress in calisthenics. Understand who it's for, how it works, and proof that this is the modern way of training.
     </p>
   </div>
 
@@ -2146,7 +2144,7 @@
     <div class="section-label reveal">CLIENT RESULTS</div>
     <h2 class="section-title reveal">A SYSTEM IS ONLY AS VALUABLE<br>AS THE RESULTS IT PRODUCES.</h2>
     <p class="section-subtitle reveal">
-      One system. Hundreds of athletes. Proven outcomes. The SubMax Method demonstrates consistent, repeatable success across athletes of all backgrounds, validating its effectiveness through real-world application.
+      One system. Hundreds of athletes. Proven outcomes. The Weak Link Method demonstrates consistent, repeatable success across athletes of all backgrounds, validating its effectiveness through real-world application.
     </p>
 
     <div class="results-grid reveal">
@@ -2669,17 +2667,17 @@
     <div class="coach-header reveal">
       <div class="section-label">THE COACH</div>
       <h2 class="section-title">MEET STEVEN.</h2>
-      <p class="section-subtitle">With over half a decade dedicated to mastering strength, Steven has spent years studying performance science and applying it in practice. Starting his journey at 250 lbs, he transformed himself into an advanced calisthenics athlete—developing a system that has demonstrated consistent, large-scale success across hundreds of individuals.</p>
+      <p class="section-subtitle">With over half a decade dedicated to mastering calisthenics, Steven has spent years studying, applying and adapting his knowledge. Starting as a weak and skinny guy at 50kg, he transformed himself into an advanced calisthenics athlete—developing a system that not only made him progress but also demonstrated consistent success across multiple athletes.</p>
     </div>
 
     <!-- Two-column: Stats left, Photo right -->
     <div class="coach-hero reveal">
       <div class="coach-details-col">
         <div class="coach-stat-grid">
-          <div class="coach-stat"><div class="cs-num">5+</div><div class="cs-label">YEARS TRAINING</div></div>
-          <div class="coach-stat"><div class="cs-num">2+</div><div class="cs-label">YEARS FULL-TIME COACHING</div></div>
-          <div class="coach-stat"><div class="cs-num">6'2 FT</div><div class="cs-label">Over 6 Ft Tall</div></div>
-          <div class="coach-stat"><div class="cs-num">150+</div><div class="cs-label">ATHLETES TRANSFORMED</div></div>
+          <div class="coach-stat"><div class="cs-num">3+</div><div class="cs-label">YEARS TRAINING</div></div>
+          <div class="coach-stat"><div class="cs-num">1+</div><div class="cs-label">YEAR FULL-TIME COACHING</div></div>
+          <div class="coach-stat"><div class="cs-num">50→80</div><div class="cs-label">KG TRANSFORMATION</div></div>
+          <div class="coach-stat"><div class="cs-num">50+</div><div class="cs-label">ATHLETES COACHED</div></div>
         </div>
       </div>
 
@@ -2703,16 +2701,12 @@
       <div class="submax-intro-wrap reveal">
         <div class="submax-cards">
           <div class="submax-card">
-            <div class="submax-card-title">Engineered Performance</div>
-            <p>Despite being 6'2" and 190 lbs, Steven has managed to learn advanced skills like the one arm handstand, one arm front lever, and full planche.</p>
-          </div>
-          <div class="submax-card">
             <div class="submax-card-title">The System Behind the Strength</div>
-            <p>Founder of the SubMax System, a method that fuses calisthenics concepts with powerlifting principles. Built to remove guesswork and create a clear, structured path to strength.</p>
+            <p>Founder of the Weak Link System, a method that helps athletes unlock advanced skills by identifying and eliminating the specific bottleneck holding back their progress—instead of blindly working harder.</p>
           </div>
           <div class="submax-card">
-            <div class="submax-card-title">Again, again, and again…</div>
-            <p>A full-time coach who has helped hundreds of people learn their dream skills, regardless of height, weight, or starting point. The system is designed to adapt to the individual.</p>
+            <div class="submax-card-title">Again, Again, and Again…</div>
+            <p>A full-time coach who has helped countless people learn their dream skills, regardless of weight or starting point. The system is not only able, but specifically designed to adapt to the individual.</p>
           </div>
           <div class="submax-card submax-card--highlight">
             <div class="submax-card-title">Calisthenics Revolutionary</div>
@@ -2730,41 +2724,6 @@
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
-     CTA BANNER — DISCORD COMMUNITY
-════════════════════════════════════════ -->
-<div class="full-section">
-  <div class="cta-banner reveal">
-    <div class="cta-banner-bg"></div>
-
-    <!-- Discord icon -->
-    <div style="margin-bottom: 24px; position: relative; z-index: 1;">
-      <svg width="48" height="48" viewBox="0 0 127.14 96.36" fill="var(--accent)" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.8;">
-        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-      </svg>
-    </div>
-
-    <div class="cta-banner-title">JOIN THE COMMUNITY<br><span style="color:var(--accent)">3,000+ ACTIVE MEMBERS</span></div>
-    <p class="cta-banner-sub">
-      Join Steven's community of 3,000+ active members. A space to connect with like-minded athletes, get guidance, ask questions, and stay accountable while progressing toward your goals.
-    </p>
-
-    <!-- Community proof: stacked avatars + online indicator -->
-    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 32px; position: relative; z-index: 1; flex-wrap: wrap;">
-      <div style="display: flex; margin-right: 4px;">
-        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 5;">K</div>
-        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 4;">J</div>
-        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 3;">S</div>
-        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); margin-right: -8px; z-index: 2;">T</div>
-        <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(209,84,26,0.15); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--accent); z-index: 1; letter-spacing: 0;">+3K</div>
-      </div>
-      <span style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted);">ONLINE NOW</span>
-      <span style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; display: inline-block; animation: pulse 2s infinite;"></span>
-    </div>
-
-    <a href="https://discord.com/invite/FUG5sAwDbW" target="_blank" rel="noopener" class="btn-primary">JOIN THE DISCORD →</a>
-  </div>
-</div>
 
 <!-- ════════════════════════════════════════
      SKILLS SHOWCASE — PHOTO GRID
@@ -2798,31 +2757,31 @@
 
     <div class="philosophy-header reveal">
       <div class="section-label">THE METHOD</div>
-      <h2 class="philosophy-title">THE PHILOSOPHY<br>BEHIND SUBMAX</h2>
+      <h2 class="philosophy-title">THE PHILOSOPHY<br>BEHIND THE WEAK LINK SYSTEM</h2>
       <p class="philosophy-subtitle">
-        A system that integrates calisthenics skill development with proven powerlifting principles—creating a structured, honest approach to strength acquisition.
+        A system built on one simple idea: every plateau has a cause. Identify the bottleneck, eliminate it, and progress becomes inevitable.
       </p>
     </div>
 
     <div class="philosophy-flow reveal">
       <div class="philosophy-step">
         <div class="philosophy-step-title">WHERE 99% FAIL</div>
-        <p class="philosophy-step-text">Most athletes spend months—often years—approaching calisthenics with a "more is better" mentality. More sets, more intensity, more fatigue. This mindset, rooted in "no pain, no gain," often leads not to progress, but to stagnation—plateaus, chronic fatigue, and preventable injury.</p>
+        <p class="philosophy-step-text">Most calisthenics athletes believe that working out automatically creates more progress. So they train harder—more volume, more intensity, more exercises. But when progress slows down, they keep applying more effort to the same problem. That's why so many athletes spend months or even years stuck on the same plateau. <strong>Training consistently isn't a lack of work. It's a lack of direction.</strong></p>
       </div>
 
       <div class="philosophy-step">
         <div class="philosophy-step-title">THE TRUTH</div>
-        <p class="philosophy-step-text">Strength is not built through excess, but through precision. It is a delicate process governed by the calculated balance of volume, frequency, and intensity. By training submaximally—intelligently managing fatigue, coordination, and output—we create the conditions for consistent, sustainable adaptation through undulating progression.</p>
+        <p class="philosophy-step-text">Plateaus are rarely effort problems—they're <strong>diagnosis problems</strong>. The reason most athletes aren't progressing usually isn't because they're not trying hard enough. It's because something specific is limiting their progress. We call that the bottleneck. Until that bottleneck is identified, every adjustment is just another guess.</p>
       </div>
 
       <div class="philosophy-step">
         <div class="philosophy-step-title">THE SOLUTION</div>
-        <p class="philosophy-step-text">After over six years of studying strength science, followed by years of real-world application across hundreds of athletes, Steven developed the SubMax system. A framework that integrates proven powerlifting principles with the unique demands of calisthenics skill acquisition.</p>
+        <p class="philosophy-step-text">The Weak Link System is built around one principle: <strong>1. Find the bottleneck. 2. Fix the bottleneck. 3. Rebuild. 4. Repeat.</strong> Instead of forcing athletes into a generic program, the system identifies the exact factor limiting their progression at any point. As progress happens, the next target changes. The system adapts and the process repeats.</p>
       </div>
 
       <div class="philosophy-step philosophy-step--highlight">
         <div class="philosophy-step-title">THE RESULT</div>
-        <p class="philosophy-step-text">The result is a unified, adaptable system—engineered to build strength and mastery in complex calisthenics movements. A methodology that evolves with the individual, aligning with their structure, capacity, and goals—delivering results regardless of starting point.</p>
+        <p class="philosophy-step-text">The result isn't just faster progress—it is <strong>clarity</strong>. Athletes stop guessing. They understand why they're progressing. They develop the ability to identify weaknesses, structure training intelligently, and make decisions that actually move the needle—long after coaching ends. Because the goal was never just to unlock one skill. <strong>The goal is to become the kind of athlete who can unlock any skill.</strong></p>
       </div>
     </div>
 
@@ -2852,7 +2811,7 @@
     <div class="section-label reveal">APPLICATION</div>
     <h2 class="section-title reveal">APPLY TO WORK<br>WITH ANTON.</h2>
     <p class="section-subtitle reveal">
-      This is not a standard sign-up form. Only apply if you are serious about calisthenics and committed to breaking past your current limitations. Every application is reviewed personally by Steven and his team. If selected, you will be contacted within 48 hours with next steps.
+      This is not a standard coaching application. I only work with a limited number of athletes who are serious about improving and willing to put in the work. Whether your goal is a Handstand Push-Up, 90° HSPU, Planche, Front Lever, or simply becoming a stronger and more advanced athlete—the coaching process is designed to identify exactly what's holding you back and create a direct path toward your goal. Every application is reviewed personally by Steven and his team. If accepted, you'll receive the next steps within 48 hours.
     </p>
 
     <div class="btn-wrapper">
@@ -2867,7 +2826,7 @@
 <footer>
   <span class="footer-brand">STEVETHNX</span>
   <div class="footer-meta">
-    <span>SUBMAX COACHING SYSTEM</span>
+    <span>WEAK LINK METHOD</span>
     <span>·</span>
     <span>© 2026 ALL RIGHTS RESERVED</span>
   </div>
@@ -3296,12 +3255,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   lazyVideos.forEach(function(video) { videoObserver.observe(video); });
 })();
 
-// ═══════════════════════════════════════
-// APPLY NOW AURA (Nav CTA button glow) — desktop only
-// ═══════════════════════════════════════
+// APPLY NOW AURA — removed
+
 (function() {
-  // Skip on mobile — saves significant CPU
-  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  return; // disabled
   var btn = document.querySelector('.nav-cta');
   var canvas = document.getElementById('aura-canvas');
   if (!btn || !canvas) return;
@@ -3339,7 +3296,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     var glow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2.2);
     glow.addColorStop(0, this.colorMid + (a * 0.7) + ')');
     glow.addColorStop(0.5, this.colorOuter + (a * 0.3) + ')');
-    glow.addColorStop(1, 'rgba(209,84,26,0)');
+    glow.addColorStop(1, 'rgba(26,95,209,0)');
     ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 2.2, 0, Math.PI * 2);
     ctx.fillStyle = glow; ctx.fill();
     ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -3364,8 +3321,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     if(a<0.02) return;
     var gr=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*3);
     gr.addColorStop(0,'rgba(255,180,60,'+(a*0.6)+')');
-    gr.addColorStop(0.5,'rgba(209,84,26,'+(a*0.3)+')');
-    gr.addColorStop(1,'rgba(209,84,26,0)');
+    gr.addColorStop(0.5,'rgba(26,95,209,'+(a*0.3)+')');
+    gr.addColorStop(1,'rgba(26,95,209,0)');
     ctx.beginPath(); ctx.arc(this.x,this.y,this.size*3,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
     ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle='rgba(255,220,140,'+a+')'; ctx.fill();
     ctx.beginPath(); ctx.arc(this.x,this.y,this.size*0.4,0,Math.PI*2); ctx.fillStyle='rgba(255,255,230,'+(a*0.95)+')'; ctx.fill();
@@ -3427,103 +3384,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   document.addEventListener('click', function(e){if(e.target!==btn){active=false;btn.classList.remove('aura-active');}});
 })();
 
-// ═══════════════════════════════════════
-// AMBIENT FIRE PARTICLES — desktop only
-// ═══════════════════════════════════════
-(function() {
-  // Skip on mobile — saves significant CPU/battery
-  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-  var canvas = document.getElementById('fire-canvas');
-  if (!canvas) return;
-  var ctx = canvas.getContext('2d');
-
-  function hexToRgb(hex) {
-    var r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
-    return r+','+g+','+b;
-  }
-
-  function resize() { canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-
-  var trainingRect=null;
-  function updateTrainingRect() {
-    var el=document.querySelector('.hero-training-wrap');
-    if(el) trainingRect=el.getBoundingClientRect();
-  }
-  updateTrainingRect();
-  window.addEventListener('resize', updateTrainingRect);
-  setTimeout(updateTrainingRect, 500);
-
-  var NUM=10, particles=[];
-  function FireParticle(forceNear) {
-    this.forceNearTraining=forceNear||false;
-    this.reset();
-  }
-  FireParticle.prototype.reset=function() {
-    if(this.forceNearTraining&&trainingRect){
-      var pad=2;
-      this.x=trainingRect.left-pad+Math.random()*(trainingRect.width+pad*2);
-      this.y=trainingRect.top-pad+Math.random()*(trainingRect.height+pad*2);
-      var angle=-Math.PI*0.5+(Math.random()-0.5)*Math.PI*0.9;
-      var spd=0.96+Math.random()*1.6;
-      this.vx=Math.cos(angle)*spd; this.vy=Math.sin(angle)*spd;
-    } else {
-      this.x=Math.random()*canvas.width;
-      this.y=canvas.height*0.2+Math.random()*canvas.height*0.75;
-      this.vy=-(0.24+Math.random()*0.4); this.vx=(Math.random()-0.5)*0.24;
-    }
-    this.startY=this.y;
-    this.sizzleTimer=0; this.sizzleInterval=8+Math.floor(Math.random()*12);
-    this.size=0.8+Math.random()*0.7;
-    var palette=[
-      {core:'#e8320a',glow:'#ff6b2b'},{core:'#e84e0a',glow:'#ff7a2a'},
-      {core:'#d1541a',glow:'#ff9c19'},{core:'#c44010',glow:'#ff8c00'},
-      {core:'#e06010',glow:'#ffaa00'},
-    ];
-    var pick=palette[Math.floor(Math.random()*palette.length)];
-    this.coreColor=pick.core; this.glowColor=pick.glow;
-    this.life=0;
-    if(Math.random()<0.7) this.life=Math.floor(Math.random()*60);
-  };
-  FireParticle.prototype.update=function() {
-    this.life++; this.y+=this.vy; this.x+=this.vx;
-    this.sizzleTimer++;
-    if(this.sizzleTimer>=this.sizzleInterval){
-      this.vx+=(Math.random()-0.5)*1.44;
-      this.vx=Math.max(-0.96,Math.min(0.96,this.vx));
-      this.sizzleTimer=0; this.sizzleInterval=8+Math.floor(Math.random()*12);
-    }
-    this.vx*=0.96;
-    var risen=this.startY-this.y;
-    if(risen>=80||this.x<-10||this.x>canvas.width+10) this.reset();
-  };
-  FireParticle.prototype.alpha=function() {
-    var risen=this.startY-this.y;
-    if(risen<=30) return 0.9;
-    return 0.9*(1-(risen-30)/50);
-  };
-  FireParticle.prototype.draw=function() {
-    var a=this.alpha(); if(a<0.01) return;
-    var gr=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*5);
-    gr.addColorStop(0,'rgba('+hexToRgb(this.glowColor)+','+(a*0.65)+')');
-    gr.addColorStop(0.5,'rgba('+hexToRgb(this.coreColor)+','+(a*0.28)+')');
-    gr.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*5,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
-    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*1.3,0,Math.PI*2);
-    ctx.fillStyle='rgba('+hexToRgb(this.coreColor)+','+a+')'; ctx.fill();
-    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*0.5,0,Math.PI*2);
-    ctx.fillStyle='rgba(255,240,200,'+(a*0.85)+')'; ctx.fill();
-  };
-  for(var i=0;i<NUM;i++) particles.push(new FireParticle(false));
-  for(var i=0;i<2;i++) particles.push(new FireParticle(true));
-  function loop() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
-    requestAnimationFrame(loop);
-  }
-  loop();
-})();
+// AMBIENT FIRE PARTICLES — removed
 
 // ═══════════════════════════════════════
 // FORM SUBMISSION
