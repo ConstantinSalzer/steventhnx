@@ -754,6 +754,12 @@
     border-color: rgba(26,95,209,0.3);
     background: rgba(26,95,209,0.03);
   }
+  .submax-cards .submax-card:last-child {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 10px);
+    justify-self: center;
+    width: 100%;
+  }
 
   /* ══════════════════════════════════════
      SKILLS STRIP
@@ -1158,6 +1164,12 @@
   .results-video-scroll .tvcard { flex: 0 0 260px; }
   .results-video-scroll .tvcard-desc { text-align: center; }
   .results-video-scroll .tvcard-name { font-size: 18px; letter-spacing: 2.4px; }
+
+  .results-static-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; padding: 40px var(--section-pad) 0; }
+  .testimonials-static-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+  .testimonials-static-grid .tvcard-name { font-size: 18px; letter-spacing: 2.4px; text-align: center; }
+  .results-static-grid .tvcard-name { font-size: 18px; letter-spacing: 2.4px; }
+  .results-static-grid .tvcard-desc { text-align: center; }
 
   .results-mini-ba { width: 100%; aspect-ratio: 9/16; min-height: 0; }
   .results-mini-ba .ba-toggle-btn { bottom: 12px; padding: 8px 16px; font-size: 10px; letter-spacing: 1.6px; }
@@ -1873,6 +1885,9 @@
 
     .tscroll-inner { padding: 10px 16px 24px; scroll-snap-type: x mandatory; }
     .tscroll-inner .tvcard, .results-video-scroll .tvcard { flex: 0 0 86vw; scroll-snap-align: center; }
+    .results-static-grid { grid-template-columns: 1fr; }
+    .testimonials-static-grid { grid-template-columns: repeat(2, 1fr); }
+    .submax-cards .submax-card:last-child { max-width: 100%; }
 
     .tvcard {
       padding: 18px; border-radius: 24px;
@@ -2113,6 +2128,9 @@
   .tvcard-video-wrap video.tvcard-video:not([data-has-frames]) {
     opacity: 0;
   }
+  .testimonials-static-grid .tvcard-video-wrap video.tvcard-video {
+    opacity: 1 !important;
+  }
   .tvcard-video-wrap video.tvcard-video[data-has-frames] {
     opacity: 1;
     transition: opacity 0.15s ease;
@@ -2146,7 +2164,7 @@
 ════════════════════════════════════════ -->
 <nav id="main-nav">
   <a href="#hero" class="nav-brand">STEVETHNX</a>
-  <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="nav-cta">APPLY NOW</a>
+  <a href="https://form.typeform.com/to/gCBfb2FQ" target="_blank" rel="noopener" class="nav-cta">APPLY NOW</a>
 </nav>
 
 <!-- ════════════════════════════════════════
@@ -2185,7 +2203,7 @@
 
     <!-- CTA -->
     <div class="hero-cta-wrap">
-      <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="btn-primary">APPLY FOR COACHING</a>
+      <a href="https://form.typeform.com/to/gCBfb2FQ" target="_blank" rel="noopener" class="btn-primary">APPLY FOR COACHING</a>
       <a href="#video-section" class="btn-ghost">WATCH THE METHOD ↓</a>
     </div>
 
@@ -2218,7 +2236,7 @@
   </div>
 
   <div class="video-after-cta">
-    <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="btn-primary">READY? APPLY NOW</a>
+    <a href="https://form.typeform.com/to/gCBfb2FQ" target="_blank" rel="noopener" class="btn-primary">READY? APPLY NOW</a>
   </div>
 </div>
 
@@ -2233,505 +2251,174 @@
       One system. Hundreds of athletes. Proven outcomes. The Weak Link Method demonstrates consistent, repeatable success across athletes of all backgrounds, validating its effectiveness through real-world application.
     </p>
 
-    <div class="results-grid reveal">
 
-      <!-- RESULT 1 — KEVIN -->
+    <div class="results-static-grid reveal">
+
+      <!-- EASA -->
       <div class="tvcard">
-        <div class="ba-slider" data-name="KEVIN">
-          <button class="ba-toggle" type="button">SEE AFTER</button>
-          <div class="ba-after ba-video" id="kevin-after">
-            <video muted playsinline preload="none" loop poster="Client Results/Kevin/kevin-after-thumb.jpg">
-              <source data-src="Client Results/Kevin/kevin-after.mp4" type="video/mp4">
+        <div class="ba-slider results-mini-ba" data-name="EASA">
+          <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="easa-after">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Easa 1 good.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="ba-before ba-video is-active" id="kevin-before">
-            <video muted playsinline preload="none" loop poster="Client Results/Kevin/kevin-before-thumb.jpg">
-              <source data-src="Client Results/Kevin/kevin-before.mp4" type="video/mp4">
+          <div class="ba-before ba-video is-active" id="easa-before">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Easa 1 bad.mp4" type="video/mp4">
             </video>
           </div>
         </div>
-        <div class="result-info">
-          <div class="result-name">KEVIN</div>
-          <p class="result-desc">15-Month Planche Transformation — From barely holding a full planche to executing clean full planche push-up combinations, including presses—at over 180 lbs.</p>
-        </div>
+        <div class="tvcard-name">EASA</div>
+        <div class="tvcard-desc">3 Month Handstand Pushup Transformation — From Pike Pushups to 4 Freestanding Handstand Pushups.</div>
       </div>
 
-      <!-- RESULT 2 — JOSHUA -->
+      <!-- TINO -->
       <div class="tvcard">
-        <div class="ba-slider" data-name="JOSHUA">
-          <button class="ba-toggle" type="button">SEE AFTER</button>
-          <div class="ba-after ba-video" id="joshua-after">
-            <video muted playsinline preload="none" loop poster="Client Results/Joshua/joshua-after-thumb.jpg">
-              <source data-src="Client Results/Joshua/joshua-after.mp4" type="video/mp4">
+        <div class="ba-slider results-mini-ba" data-name="TINO">
+          <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="tino-after">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Tino 2 good.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="ba-before ba-video is-active" id="joshua-before">
-            <video muted playsinline preload="none" loop poster="Client Results/Joshua/joshua-before-thumb.jpg">
-              <source data-src="Client Results/Joshua/joshua-before.mp4" type="video/mp4">
+          <div class="ba-before ba-video is-active" id="tino-before">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Tino 2 bad.mp4" type="video/mp4">
             </video>
           </div>
         </div>
-        <div class="result-info">
-          <div class="result-name">JOSHUA</div>
-          <p class="result-desc">10-Month Planche &amp; Front Lever Transformation — From struggling with advanced tuck progressions to achieving a 10-second full planche and performing full front lever pull-ups.</p>
-        </div>
+        <div class="tvcard-name">TINO</div>
+        <div class="tvcard-desc">5 Month 90° Handstand Pushup and Front Lever Transformation — From wall assisted Handstand Pushups and advanced tuck Front Lever holds to 90° Handstand Pushups and full Front Lever holds.</div>
       </div>
 
-      <!-- RESULT 3 — TORYN -->
+      <!-- AYOUB -->
       <div class="tvcard">
-        <div class="ba-slider" data-name="TORYN">
-          <button class="ba-toggle" type="button">SEE AFTER</button>
-          <div class="ba-after ba-video" id="toryn-after">
-            <video muted playsinline preload="none" loop poster="Client Results/Toryn/toryn-after-thumb.jpg">
-              <source data-src="Client Results/Toryn/toryn-after.mp4" type="video/mp4">
+        <div class="ba-slider results-mini-ba" data-name="AYOUB">
+          <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="ayoub-after">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Ayoub 3 good.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="ba-before ba-video is-active" id="toryn-before">
-            <video muted playsinline preload="none" loop poster="Client Results/Toryn/toryn-before-thumb.jpg">
-              <source data-src="Client Results/Toryn/toryn-before.mp4" type="video/mp4">
+          <div class="ba-before ba-video is-active" id="ayoub-before">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Ayoub 3 bad.mp4" type="video/mp4">
             </video>
           </div>
         </div>
-        <div class="result-info">
-          <div class="result-name">TORYN</div>
-          <p class="result-desc">4-Month One-Arm Handstand Transformation — From limited weight-shifting ability to holding a 15-second one-arm handstand on a BOSU ball and parallel bars.</p>
-        </div>
+        <div class="tvcard-name">AYOUB</div>
+        <div class="tvcard-desc">5 Month Planche Transformation — From straddle Planche and one leg Touch to wide full Planche.</div>
       </div>
 
-      <!-- RESULT 4 — BRAXTON -->
+      <!-- LOUIS -->
       <div class="tvcard">
-        <div class="ba-slider" data-name="BRAXTON">
-          <button class="ba-toggle" type="button">SEE AFTER</button>
-          <div class="ba-after ba-video" id="braxton-after">
-            <video muted playsinline preload="none" loop poster="Client Results/Braxton/braxton-after-thumb.jpg">
-              <source data-src="Client Results/Braxton/braxton-after.mp4" type="video/mp4">
+        <div class="ba-slider results-mini-ba" data-name="LOUIS">
+          <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="louis-after">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Louis 4 good.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="ba-before ba-video is-active" id="braxton-before">
-            <video muted playsinline preload="none" loop poster="Client Results/Braxton/braxton-before-thumb.jpg">
-              <source data-src="Client Results/Braxton/braxton-before.mp4" type="video/mp4">
+          <div class="ba-before ba-video is-active" id="louis-before">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Louis 4 before.mp4" type="video/mp4">
             </video>
           </div>
         </div>
-        <div class="result-info">
-          <div class="result-name">BRAXTON</div>
-          <p class="result-desc">3-Month Planche Transformation — From improper bent-arm mechanics to full planche combinations, including a fingertip full planche.</p>
+        <div class="tvcard-name">LOUIS</div>
+        <div class="tvcard-desc">3 Month Handstand Pushup and Front Lever Transformation — From </div>
+      </div>
+
+      <!-- CHRIS -->
+      <div class="tvcard">
+        <div class="ba-slider results-mini-ba" data-name="CHRIS">
+          <button class="ba-toggle is-before" type="button">SEE AFTER</button>
+          <div class="ba-after ba-video" id="chris-after">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Chris 5 good.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ba-before ba-video is-active" id="chris-before">
+            <video muted playsinline preload="none" loop>
+              <source data-src="Videos_NEU/progress/Chris 5 bad.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
+        <div class="tvcard-name">CHRIS</div>
+        <div class="tvcard-desc">4 Month Handstand Pushup Transformation — From Ugly Pike Liftoffs to Freestanding Handstand Pushups.</div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- More results scroll -->
-<div class="results-scroll-header results-more-hint reveal" aria-hidden="true">
-  <button class="results-scroll-arrow" id="results-arrow-prev" type="button" aria-label="Scroll left">←</button>
-  <span class="results-scroll-label">AND HUNDREDS MORE...</span>
-  <button class="results-scroll-arrow" id="results-arrow-next" type="button" aria-label="Scroll right">→</button>
-</div>
-
-<div class="tscroll-track results-video-scroll">
-  <button class="tscroll-nav-btn tscroll-btn-prev" type="button" aria-label="Previous client result video">&#8249;</button>
-  <button class="tscroll-nav-btn tscroll-btn-next" type="button" aria-label="Next client result video">&#8250;</button>
-
-  <div class="tscroll-inner">
-
-    <!-- KENTO -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="KENTO">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="kento-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Kento/kento-after-thumb.jpg">
-            <source data-src="Client Results/Kento/kento-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="kento-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Kento/kento-before-thumb.jpg">
-            <source data-src="Client Results/Kento/kento-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">KENTO</div>
-      <div class="tvcard-desc">4-Month Planche & Front Lever Transformation — From tuck variations to a clean 5-second straddle planche and a 10-second full front lever.</div>
-    </div>
-
-    <!-- TRISTAN -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="TRISTAN">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="tristan-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Tristan/tristan-after-thumb.jpg">
-            <source data-src="Client Results/Tristan/tristan-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="tristan-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Tristan/tristan-before-thumb.jpg">
-            <source data-src="Client Results/Tristan/tristan-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">TRISTAN</div>
-      <div class="tvcard-desc">4-Month Front Lever & HSPU Transformation — From weak pike push-ups and inconsistent holds to full freestanding handstand push-ups and a clean 10-second front lever.</div>
-    </div>
-
-    <!-- AMAURY -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="AMAURY">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="amaury-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Amaury/amaury-after-thumb.jpg">
-            <source data-src="Client Results/Amaury/amaury-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="amaury-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Amaury/amaury-before-thumb.jpg">
-            <source data-src="Client Results/Amaury/amaury-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">AMAURY</div>
-      <div class="tvcard-desc">3-Month HSPU Transformation — From inconsistent handstands and zero handstand push up reps to consistent 5+ rep sets.</div>
-    </div>
-
-    <!-- DARIAN -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="DARIAN">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="darian-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Darian/darian-after-thumb.jpg">
-            <source data-src="Client Results/Darian/darian-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="darian-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Darian/darian-before-thumb.jpg">
-            <source data-src="Client Results/Darian/darian-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">DARIAN</div>
-      <div class="tvcard-desc">2-Month Front Lever Pull Up Transformation — From weak advanced tuck pull ups to repping out full front lever pull ups.</div>
-    </div>
-
-    <!-- GUS -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="GUS">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="gus-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Gus/gus-after-thumb.jpg">
-            <source data-src="Client Results/Gus/gus-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="gus-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Gus/gus-before-thumb.jpg">
-            <source data-src="Client Results/Gus/gus-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">GUS</div>
-      <div class="tvcard-desc">5-Month HSPU & Front Lever Transformation — From basic progressions to 5+ clean handstand push-ups and a solid 7-second front lever hold.</div>
-    </div>
-
-    <!-- STEVEN -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="STEVEN">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="steven-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Steven/steven-after-thumb.jpg">
-            <source data-src="Client Results/Steven/steven-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="steven-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Steven/steven-before-thumb.jpg">
-            <source data-src="Client Results/Steven/steven-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">STEVEN</div>
-      <div class="tvcard-desc">3-Month Planche & Front Lever Transformation — From tuck-level strength and poor mechanics to a clean 5-second straddle planche and full front lever.</div>
-    </div>
-
-    <!-- COLIN -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="COLIN">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="colin-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Colin/colin-after-thumb.jpg">
-            <source data-src="Client Results/Colin/colin-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="colin-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Colin/colin-before-thumb.jpg">
-            <source data-src="Client Results/Colin/colin-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">COLIN</div>
-      <div class="tvcard-desc">11-Month Handstand Push-Up Transformation — At 6’1”, progressed from pike push-ups to full 90-degree handstand push-ups—while gaining 15 lbs.</div>
-    </div>
-
-    <!-- JANAK -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="JANAK">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="janak-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Janak/janak-after-thumb.jpg">
-            <source data-src="Client Results/Janak/janak-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="janak-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Janak/janak-before-thumb.jpg">
-            <source data-src="Client Results/Janak/janak-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">JANAK</div>
-      <div class="tvcard-desc">6-Month Handstand Push-Up Transformation — From a single inconsistent rep to full 90-degree handstand push-ups.</div>
-    </div>
-
-    <!-- SAM -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="SAM">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="sam-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Sam/sam-after-thumb.jpg">
-            <source data-src="Client Results/Sam/sam-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="sam-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Sam/sam-before-thumb.jpg">
-            <source data-src="Client Results/Sam/sam-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">SAM</div>
-      <div class="tvcard-desc">3-Month Front Lever Transformation — From a weak tuck hold to a full front lever in under 3 months at 5’11”.</div>
-    </div>
-
-    <!-- REID -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="REID">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="reid-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Reid/reid-after-thumb.jpg">
-            <source data-src="Client Results/Reid/reid-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="reid-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Reid/reid-before-thumb.jpg">
-            <source data-src="Client Results/Reid/reid-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">REID</div>
-      <div class="tvcard-desc">2-Month Handstand Push-Up Transformation — From minimal balance to L-sit to handstand push-ups and 5 consecutive freestanding reps.</div>
-    </div>
-
-    <!-- JOSH -->
-    <div class="tvcard">
-      <div class="ba-slider results-mini-ba" data-name="JOSH">
-        <button class="ba-toggle is-before" type="button">SEE AFTER</button>
-        <div class="ba-after ba-video" id="josh2-mini-after">
-          <video muted playsinline preload="none" loop poster="Client Results/Josh2/josh2-after-thumb.jpg">
-            <source data-src="Client Results/Josh2/josh2-after.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ba-before ba-video is-active" id="josh2-mini-before">
-          <video muted playsinline preload="none" loop poster="Client Results/Josh2/josh2-before-thumb.jpg">
-            <source data-src="Client Results/Josh2/josh2-before.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <div class="tvcard-name">JOSH</div>
-      <div class="tvcard-desc">4-Month Handstand Push-Up Transformation — From failing basic freestanding reps to controlled, dead-stop 90-degree handstand push-ups.</div>
-    </div>
-
-  </div>
-  <div class="tscroll-fade-left"></div>
-  <div class="tscroll-fade-right"></div>
-</div>
-
 <!-- ════════════════════════════════════════
-     SECTION 3B — CLIENT TESTIMONIALS (HORIZONTAL SCROLL)
+     SECTION 3B — CLIENT TESTIMONIALS
 ════════════════════════════════════════ -->
-<section style="border-bottom: 1px solid var(--border); overflow:hidden;">
-  <div class="section" style="padding-bottom:0;">
+<section style="border-bottom: 1px solid var(--border);">
+  <div class="section">
     <div class="section-label reveal">TESTIMONIALS</div>
     <h2 class="section-title reveal">HEAR IT IN<br>THEIR OWN WORDS.</h2>
     <p class="section-subtitle reveal">
-      Hear directly from the athletes themselves as they share their experience applying the SubMax Method and working with Steven.
+      Hear directly from the athletes themselves as they share their experience applying the Weak Link Method and working with Steven.
     </p>
 
-    <div class="scroll-hint reveal">
-      <span class="scroll-hint-arrow">←</span>
-      <span class="scroll-hint-text">SWIPE TO VIEW</span>
-      <span class="scroll-hint-arrow">→</span>
+    <div class="testimonials-static-grid reveal">
+
+      <!-- EASA -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline autoplay loop>
+            <source src="Videos_NEU/testimonials/EASA Testemonial.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">EASA</div>
+      </div>
+
+      <!-- TINO -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline autoplay loop>
+            <source src="Videos_NEU/testimonials/TINO Testemonial.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">TINO</div>
+      </div>
+
+      <!-- AYOUB -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline autoplay loop>
+            <source src="Videos_NEU/testimonials/AYOUB Testemonial.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">AYOUB</div>
+      </div>
+
+      <!-- LUCAS -->
+      <div class="tvcard">
+        <div class="tvcard-video-wrap">
+          <video class="tvcard-video" muted playsinline autoplay loop>
+            <source src="Videos_NEU/testimonials/LUCAS Testemonial.mp4" type="video/mp4">
+          </video>
+          <div class="tcard-play-overlay">
+            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
+          </div>
+        </div>
+        <div class="tvcard-name">LUCAS</div>
+      </div>
+
     </div>
-  </div>
-
-  <div class="tscroll-track">
-    <button class="tscroll-nav-btn tscroll-btn-prev" id="tscroll-prev" aria-label="Previous">&#8249;</button>
-    <button class="tscroll-nav-btn tscroll-btn-next" id="tscroll-next" aria-label="Next">&#8250;</button>
-
-    <div class="tscroll-inner">
-           <!-- 1. DARIAN -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/darian.jpg">
-            <source data-src="Testimonials/darian.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">DARIAN</div>
-      </div>
-            <!-- 1. KENTO -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/kento.jpg">
-            <source data-src="Testimonials/kento.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">KENTO</div>
-      </div>
-
-
-<!-- 2. Patrick -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/patrick.jpg">
-            <source data-src="Testimonials/patrick.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">PATRICK</div>
-      </div>
-
-      <!-- 2. JOSH -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/josh.jpg">
-            <source data-src="Testimonials/josh.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">JOSH</div>
-      </div>
-
-      <!-- 2. KEVIN -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/kevin.jpg">
-            <source data-src="Testimonials/kevin.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">KEVIN</div>
-      </div>
-
-      <!-- 3. STEVEN -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/steven.jpg">
-            <source data-src="Testimonials/steven.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">STEVEN</div>
-      </div>
-
-      <!-- 4. SAM -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/sam.jpg">
-            <source data-src="Testimonials/sam.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">SAM</div>
-      </div>
-
-      <!-- 5. TRISTAN -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/tristan.jpg">
-            <source data-src="Testimonials/tristan.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">TRISTAN</div>
-      </div>
-
-      <!-- 6. REID -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/reid.jpg">
-            <source data-src="Testimonials/reid.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">REID</div>
-      </div>
-
-      <!-- 7. GUS -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/gus.jpg">
-            <source data-src="Testimonials/gus.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">GUS</div>
-      </div>
-
-      <!-- 8. TORYN -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/toryn.jpg">
-            <source data-src="Testimonials/toryn.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">TORYN</div>
-      </div>
-
-      <!-- 9. JOHN -->
-      <div class="tvcard">
-        <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline preload="metadata" poster="Testimonials/Thumbnails/john.jpg">
-            <source data-src="Testimonials/john.mp4" type="video/mp4">
-          </video>
-          <div class="tcard-play-overlay">
-            <div class="ba-play-circle"><div class="ba-play-icon"></div></div>
-          </div>
-        </div>
-        <div class="tvcard-name">JOHN</div>
-      </div>
-    </div>
-
-    <div class="tscroll-fade-left"></div>
-    <div class="tscroll-fade-right"></div>
   </div>
 </section>
 
@@ -2772,10 +2459,10 @@
           <div class="ba-slider" data-name="STEVEN" style="aspect-ratio: 3/4;">
             <button class="ba-toggle is-after" type="button">SEE BEFORE</button>
             <div class="ba-after ba-video is-active">
-              <img src="Images/anton-after.jpg" alt="Steven — current physique" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+              <img src="Videos_NEU/stefan/stefan_neu.PNG" alt="Steven — current physique" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
             </div>
             <div class="ba-before ba-video">
-              <img src="Images/anton-before.jpg" alt="Steven — starting point" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+              <img src="Videos_NEU/stefan/stefan_alt.jpg" alt="Steven — starting point" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
             </div>
           </div>
         </div>
@@ -2804,36 +2491,13 @@
 
     <!-- CTA -->
     <div class="coach-cta-wrap reveal">
-      <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" rel="noopener" class="btn-primary">WORK WITH STEVEN</a>
+      <a href="https://form.typeform.com/to/gCBfb2FQ" target="_blank" rel="noopener" class="btn-primary">WORK WITH STEVEN</a>
     </div>
 
   </div>
 </section>
 
 
-<!-- ════════════════════════════════════════
-     SKILLS SHOWCASE — PHOTO GRID
-════════════════════════════════════════ -->
-<div class="skills-showcase">
-  <div class="skills-showcase-grid">
-    <div class="skills-showcase-item">
-      <img src="Images/skill4.JPG" alt="One arm handstand" loading="lazy" decoding="async">
-      <span class="skills-showcase-label">ONE ARM HANDSTAND</span>
-    </div>
-    <div class="skills-showcase-item">
-      <img src="Images/skill3.JPG" alt="Front lever" loading="lazy" decoding="async">
-      <span class="skills-showcase-label">FRONT LEVER</span>
-    </div>
-    <div class="skills-showcase-item">
-      <img src="Images/skill1.jpg" alt="Advanced calisthenics skill" loading="lazy" decoding="async">
-      <span class="skills-showcase-label">XXX</span>
-    </div>
-    <div class="skills-showcase-item wide">
-      <img src="Images/skill2.JPG" alt="Planche" loading="lazy" style="object-position: center center;">
-      <span class="skills-showcase-label">PLANCHE</span>
-    </div>
-  </div>
-</div>
 
 <!-- ════════════════════════════════════════
      SUBMAX PHILOSOPHY SECTION
@@ -2874,20 +2538,6 @@
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
-     PRE-APPLY — CINEMATIC STRIP
-════════════════════════════════════════ -->
-<div class="pre-apply-strip">
-  <div class="pre-apply-strip-item">
-    <img src="Images/pic2.jpg" alt="Steven physique" loading="lazy" decoding="async">
-  </div>
-  <div class="pre-apply-strip-item">
-    <img src="Images/pic1.jpg" alt="Handstand push-up" loading="lazy" decoding="async">
-  </div>
-  <div class="pre-apply-strip-item">
-    <img src="Images/pic3.JPG" alt="Gym training" loading="lazy" decoding="async">
-  </div>
-</div>
 
 <!-- ════════════════════════════════════════
      APPLICATION FORM
@@ -2928,7 +2578,7 @@
     </div>
 
     <div class="btn-wrapper">
-      <a href="https://form.typeform.com/to/IeHZ2FIw" target="_blank" class="glitch-btn">APPLY NOW</a>
+      <a href="https://form.typeform.com/to/gCBfb2FQ" target="_blank" class="glitch-btn">APPLY NOW</a>
     </div>
   </div>
 </section>
@@ -3124,6 +2774,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 
   function registerTestimonialCard(card) {
     if (!card || card.dataset.videoReady === 'true') return;
+    if (card.closest('.testimonials-static-grid')) return;
 
     var video = card.querySelector('.tvcard-video');
     var playOverlay = card.querySelector('.tcard-play-overlay');
@@ -3275,6 +2926,38 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   document.querySelectorAll('.tscroll-track .tvcard-video').forEach(captureFirstFrame);
   document.querySelectorAll('.results-grid .ba-video video').forEach(captureFirstFrame);
 })();
+
+// ═══════════════════════════════════════
+// TESTIMONIAL POSTER CAPTURE
+// Runs after all other JS. Uses preload="auto" + load() to force
+// the browser to decode a frame even if moov atom is at end of file.
+// ═══════════════════════════════════════
+window.addEventListener('load', function() {
+  document.querySelectorAll('.testimonials-static-grid .tvcard-video').forEach(function(v) {
+    v.setAttribute('preload', 'auto');
+    v.load();
+    function onSeek() {
+      try {
+        var c = document.createElement('canvas');
+        c.width = v.videoWidth || 360;
+        c.height = v.videoHeight || 640;
+        c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+        var url = c.toDataURL('image/jpeg', 0.85);
+        if (url && url !== 'data:,') {
+          v.poster = url;
+          var w = v.closest('.tvcard-video-wrap');
+          if (w) { w.style.backgroundImage = 'url(' + url + ')'; w.setAttribute('data-poster', ''); }
+        }
+      } catch(e) {}
+      v.setAttribute('preload', 'none');
+      v.pause();
+    }
+    v.addEventListener('canplay', function() {
+      v.currentTime = 0.1;
+      v.addEventListener('seeked', onSeek, { once: true });
+    }, { once: true });
+  });
+});
 
 // ═══════════════════════════════════════
 // LAZY LOADING — IFRAMES (YouTube + Vimeo)
