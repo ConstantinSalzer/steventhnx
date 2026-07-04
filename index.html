@@ -2367,7 +2367,7 @@
       <!-- EASA -->
       <div class="tvcard">
         <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline autoplay loop>
+          <video class="tvcard-video" muted playsinline>
             <source src="Videos_NEU/testimonials/EASA Testemonial.mp4" type="video/mp4">
           </video>
           <div class="tcard-play-overlay">
@@ -2380,7 +2380,7 @@
       <!-- TINO -->
       <div class="tvcard">
         <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline autoplay loop>
+          <video class="tvcard-video" muted playsinline>
             <source src="Videos_NEU/testimonials/TINO Testemonial.mp4" type="video/mp4">
           </video>
           <div class="tcard-play-overlay">
@@ -2393,7 +2393,7 @@
       <!-- AYOUB -->
       <div class="tvcard">
         <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline autoplay loop>
+          <video class="tvcard-video" muted playsinline>
             <source src="Videos_NEU/testimonials/AYOUB Testemonial.mp4" type="video/mp4">
           </video>
           <div class="tcard-play-overlay">
@@ -2406,7 +2406,7 @@
       <!-- LUCAS -->
       <div class="tvcard">
         <div class="tvcard-video-wrap">
-          <video class="tvcard-video" muted playsinline autoplay loop>
+          <video class="tvcard-video" muted playsinline>
             <source src="Videos_NEU/testimonials/LUCAS Testemonial.mp4" type="video/mp4">
           </video>
           <div class="tcard-play-overlay">
@@ -3591,25 +3591,63 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 
-document.querySelectorAll('.tvcard').forEach(card => {
-  const video   = card.querySelector('.tvcard-video');
-  const overlay = card.querySelector('.tcard-play-overlay');
+// ═══════════════════════════════════════
+// TESTIMONIALS STATIC GRID — CLICK TO PLAY
+// ═══════════════════════════════════════
+(function () {
+  var staticCards = Array.from(
+    document.querySelectorAll('.testimonials-static-grid .tvcard')
+  );
 
-  overlay.addEventListener('click', () => {
-    if (video.paused) {
+  function pauseAllExcept(activeVideo) {
+    staticCards.forEach(function (c) {
+      var v = c.querySelector('.tvcard-video');
+      var o = c.querySelector('.tcard-play-overlay');
+      if (!v || v === activeVideo) return;
+      v.pause();
+      v.currentTime = 0;
+      if (o) { o.classList.remove('is-hidden'); o.style.display = ''; }
+    });
+  }
+
+  staticCards.forEach(function (card) {
+    var video   = card.querySelector('.tvcard-video');
+    var overlay = card.querySelector('.tcard-play-overlay');
+    if (!video || !overlay) return;
+
+    // Belt-and-suspenders: strip autoplay/loop in case they survive in markup
+    video.autoplay = false;
+    video.loop     = false;
+    video.removeAttribute('autoplay');
+    video.removeAttribute('loop');
+
+    function showOverlay() { overlay.classList.remove('is-hidden'); overlay.style.display = ''; }
+    function hideOverlay() { overlay.classList.add('is-hidden'); }
+
+    overlay.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (!video.paused) {
+        video.pause();
+        showOverlay();
+        return;
+      }
+      pauseAllExcept(video);
       video.muted = false;
-      video.play();
-      overlay.style.display = 'none';
-    } else {
-      video.pause();
-      overlay.style.display = 'flex';
-    }
-  });
+      var p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {
+          // Unmuted autoplay blocked (mobile policy) — fall back to muted
+          video.muted = true;
+          video.play().catch(function () {});
+        });
+      }
+      hideOverlay();
+    });
 
-  video.addEventListener('pause', () => {
-    overlay.style.display = 'flex';
+    video.addEventListener('pause', showOverlay);
+    video.addEventListener('ended', showOverlay);
   });
-});
+})();
 </script>
 </body>
 </html>
