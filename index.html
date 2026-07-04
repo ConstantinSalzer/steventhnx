@@ -3590,6 +3590,26 @@ document.addEventListener('DOMContentLoaded', function() {
     requestAnimationFrame(autoScroll);
   });
 })();
+
+document.querySelectorAll('.tvcard').forEach(card => {
+  const video   = card.querySelector('.tvcard-video');
+  const overlay = card.querySelector('.tcard-play-overlay');
+
+  overlay.addEventListener('click', () => {
+    if (video.paused) {
+      video.muted = false;
+      video.play();
+      overlay.style.display = 'none';
+    } else {
+      video.pause();
+      overlay.style.display = 'flex';
+    }
+  });
+
+  video.addEventListener('pause', () => {
+    overlay.style.display = 'flex';
+  });
+});
 </script>
 </body>
 </html>
